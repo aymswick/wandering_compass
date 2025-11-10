@@ -1,0 +1,7 @@
+{
+    "@@locale": "en",
+    "@todayAppBarTitle": {
+        "description": "Text shown in the AppBar of the Today Page"
+    },
+    "todayAppBarTitle": "Today"
+}

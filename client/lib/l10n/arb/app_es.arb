@@ -1,0 +1,7 @@
+{
+    "@@locale": "es",
+    "@todayAppBarTitle": {
+        "description": "Texto mostrado en la AppBar de la página del contador"
+    },
+    "todayAppBarTitle": "Contador"
+}
