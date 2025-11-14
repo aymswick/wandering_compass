@@ -1,5 +1,7 @@
 part of 'today_bloc.dart';
 
+class ClockTicked extends TodayEvent {}
+
 class MiddayArrivedEvent extends TodayEvent {}
 
 class MorningArrivedEvent extends TodayEvent {}

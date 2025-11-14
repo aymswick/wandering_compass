@@ -1,6 +1,8 @@
 part of 'today_bloc.dart';
 
-@immutable
-sealed class TodayState {}
+@MappableClass()
+class TodayState with TodayStateMappable {
+  const TodayState({required this.currentTick});
 
-final class TodayInitial extends TodayState {}
+  final double currentTick;
+}

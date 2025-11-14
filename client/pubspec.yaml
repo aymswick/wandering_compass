@@ -11,6 +11,9 @@ resolution: workspace
 
 dependencies:
   bloc: ^9.0.1
+  build_runner: ^2.10.2
+  clock: ^1.1.2
+  dart_mappable: ^4.6.1
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
@@ -23,6 +26,7 @@ dependencies:
 
 dev_dependencies:
   bloc_test: ^10.0.0
+  dart_mappable_builder: ^4.6.1
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
