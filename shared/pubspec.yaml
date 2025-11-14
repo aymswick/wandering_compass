@@ -1,0 +1,13 @@
+name: 'shared'
+version: 0.0.1
+
+environment:
+  sdk: ^3.9.0
+  
+resolution: workspace
+dependencies:
+  build_runner: ^2.7.1
+
+dev_dependencies:
+  dart_mappable: ^4.6.1
+  dart_mappable_builder: ^4.6.0
