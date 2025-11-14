@@ -3,15 +3,21 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-85.0.0",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-91.0.0",
       "packageUri": "lib/",
-      "languageVersion": "3.5"
+      "languageVersion": "3.9"
     },
     {
       "name": "analyzer",
-      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/analyzer-7.7.1",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/analyzer-8.4.1",
       "packageUri": "lib/",
-      "languageVersion": "3.5"
+      "languageVersion": "3.9"
+    },
+    {
+      "name": "ansicolor",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/ansicolor-2.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "args",
@@ -44,10 +50,52 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "build",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/build-4.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
+      "name": "build_config",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/build_config-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
+      "name": "build_daemon",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/build_daemon-4.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
+      "name": "build_runner",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/build_runner-2.10.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
+      "name": "built_collection",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/built_collection-5.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "built_value",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/built_value-8.12.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "characters",
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/characters-1.4.0",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "checked_yaml",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/checked_yaml-2.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.8"
     },
     {
       "name": "cli_config",
@@ -60,6 +108,12 @@
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/clock-1.1.2",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "code_builder",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/code_builder-4.11.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
     },
     {
       "name": "collection",
@@ -98,6 +152,24 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "dart_mappable",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/dart_mappable-4.6.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
+      "name": "dart_mappable_builder",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/dart_mappable_builder-4.6.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
+      "name": "dart_style",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/dart_style-3.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
+    },
+    {
       "name": "diff_match_patch",
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/diff_match_patch-0.4.1",
       "packageUri": "lib/",
@@ -114,6 +186,12 @@
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/file-7.0.1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "fixnum",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/fixnum-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
     },
     {
       "name": "flutter",
@@ -150,6 +228,12 @@
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/glob-2.1.3",
       "packageUri": "lib/",
       "languageVersion": "3.3"
+    },
+    {
+      "name": "graphs",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/graphs-2.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
     },
     {
       "name": "hotreloader",
@@ -194,6 +278,12 @@
       "languageVersion": "3.7"
     },
     {
+      "name": "json_annotation",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/json_annotation-4.9.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "leak_tracker",
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/leak_tracker-11.0.2",
       "packageUri": "lib/",
@@ -231,9 +321,9 @@
     },
     {
       "name": "meta",
-      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/meta-1.16.0",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/meta-1.17.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.5"
     },
     {
       "name": "mime",
@@ -290,6 +380,18 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "pubspec_parse",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/pubspec_parse-1.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
+    },
+    {
+      "name": "schedule_repository",
+      "rootUri": "../client/packages/schedule_repository",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
+    },
+    {
       "name": "shelf",
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/shelf-1.4.2",
       "packageUri": "lib/",
@@ -324,6 +426,12 @@
       "rootUri": "file:///Users/aymswick/development/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
       "languageVersion": "3.8"
+    },
+    {
+      "name": "source_gen",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/source_gen-4.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
     },
     {
       "name": "source_map_stack_trace",
@@ -375,21 +483,27 @@
     },
     {
       "name": "test",
-      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/test-1.26.2",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/test-1.26.3",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
     {
       "name": "test_api",
-      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/test_api-0.7.6",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/test_api-0.7.7",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
     {
       "name": "test_core",
-      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/test_core-0.6.11",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/test_core-0.6.12",
       "packageUri": "lib/",
       "languageVersion": "3.5"
+    },
+    {
+      "name": "type_plus",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/type_plus-2.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "typed_data",
@@ -468,11 +582,17 @@
       "rootUri": "../server",
       "packageUri": "lib/",
       "languageVersion": "3.9"
+    },
+    {
+      "name": "shared",
+      "rootUri": "../shared",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
     }
   ],
   "generator": "pub",
-  "generatorVersion": "3.9.2",
+  "generatorVersion": "3.10.0",
   "flutterRoot": "file:///Users/aymswick/development/flutter",
-  "flutterVersion": "3.35.7",
+  "flutterVersion": "3.38.1",
   "pubCache": "file:///Users/aymswick/.pub-cache"
 }
