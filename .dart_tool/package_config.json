@@ -69,7 +69,7 @@
     },
     {
       "name": "build_runner",
-      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/build_runner-2.10.2",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/build_runner-2.10.3",
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },
@@ -216,6 +216,12 @@
       "rootUri": "file:///Users/aymswick/development/flutter/packages/flutter_test",
       "packageUri": "lib/",
       "languageVersion": "3.8"
+    },
+    {
+      "name": "formz",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/formz-0.8.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
     },
     {
       "name": "frontend_server_client",

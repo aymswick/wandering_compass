@@ -23,6 +23,7 @@
         "flutter",
         "flutter_bloc",
         "flutter_localizations",
+        "formz",
         "intl",
         "schedule_repository",
         "shared"
@@ -84,7 +85,7 @@
     },
     {
       "name": "build_runner",
-      "version": "2.10.2",
+      "version": "2.10.3",
       "dependencies": [
         "analyzer",
         "args",
@@ -224,6 +225,13 @@
         "clock",
         "meta",
         "path"
+      ]
+    },
+    {
+      "name": "formz",
+      "version": "0.8.0",
+      "dependencies": [
+        "meta"
       ]
     },
     {

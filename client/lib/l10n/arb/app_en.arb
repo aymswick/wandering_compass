@@ -1,7 +1,11 @@
 {
-    "@@locale": "en",
-    "@todayAppBarTitle": {
-        "description": "Text shown in the AppBar of the Today Page"
-    },
-    "todayAppBarTitle": "Today"
+  "@@locale": "en",
+  "@midnight": {
+    "description": "The annotation for the top of the clock widget, the end of the day."
+  },
+  "@todayAppBarTitle": {
+    "description": "Text shown in the AppBar of the Today Page"
+  },
+  "midnight": "midnight",
+  "todayAppBarTitle": "Today"
 }

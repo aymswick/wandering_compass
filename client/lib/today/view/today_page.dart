@@ -1,5 +1,3 @@
-import 'dart:async' show Timer;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:schedule_repository/schedule_repository.dart';
@@ -27,21 +25,22 @@ class TodayView extends StatelessWidget {
     final l10n = context.l10n;
     final bloc = context.read<TodayBloc>();
 
-    Timer.periodic(
-      const Duration(seconds: 1),
-      (Timer t) => bloc.add(ClockTicked()),
-    );
-
     return Scaffold(
       appBar: AppBar(title: Text(l10n.todayAppBarTitle)),
-      body: Center(
-        child: SizedBox.expand(
-          child: BlocBuilder<TodayBloc, TodayState>(
-            builder: (context, state) {
-              return CustomPaint(
-                painter: ClockPainter(progress: state.currentTick),
-              );
-            },
+      body: SizedBox.expand(
+        child: BlocSelector<TodayBloc, TodayState, double>(
+          selector: (state) => state.currentTick,
+          builder: (context, dayProgressPercentage) => CustomPaint(
+            painter: ClockPainter(dayProgressPercentage: dayProgressPercentage),
+            child: Center(
+              child: Text(
+                '${(dayProgressPercentage * 100).toStringAsFixed(2)}%',
+                style: const TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
         ),
       ),
