@@ -26,14 +26,25 @@ class TodayStateMapper extends ClassMapperBase<TodayState> {
     'currentTick',
     _$currentTick,
   );
+  static List<String> _$items(TodayState v) => v.items;
+  static const Field<TodayState, List<String>> _f$items = Field(
+    'items',
+    _$items,
+    opt: true,
+    def: const [],
+  );
 
   @override
   final MappableFields<TodayState> fields = const {
     #currentTick: _f$currentTick,
+    #items: _f$items,
   };
 
   static TodayState _instantiate(DecodingData data) {
-    return TodayState(currentTick: data.dec(_f$currentTick));
+    return TodayState(
+      currentTick: data.dec(_f$currentTick),
+      items: data.dec(_f$items),
+    );
   }
 
   @override
@@ -96,7 +107,8 @@ extension TodayStateValueCopy<$R, $Out>
 
 abstract class TodayStateCopyWith<$R, $In extends TodayState, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({double? currentTick});
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get items;
+  $R call({double? currentTick, List<String>? items});
   TodayStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -109,12 +121,24 @@ class _TodayStateCopyWithImpl<$R, $Out>
   late final ClassMapperBase<TodayState> $mapper =
       TodayStateMapper.ensureInitialized();
   @override
-  $R call({double? currentTick}) => $apply(
-    FieldCopyWithData({if (currentTick != null) #currentTick: currentTick}),
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get items =>
+      ListCopyWith(
+        $value.items,
+        (v, t) => ObjectCopyWith(v, $identity, t),
+        (v) => call(items: v),
+      );
+  @override
+  $R call({double? currentTick, List<String>? items}) => $apply(
+    FieldCopyWithData({
+      if (currentTick != null) #currentTick: currentTick,
+      if (items != null) #items: items,
+    }),
   );
   @override
-  TodayState $make(CopyWithData data) =>
-      TodayState(currentTick: data.get(#currentTick, or: $value.currentTick));
+  TodayState $make(CopyWithData data) => TodayState(
+    currentTick: data.get(#currentTick, or: $value.currentTick),
+    items: data.get(#items, or: $value.items),
+  );
 
   @override
   TodayStateCopyWith<$R2, TodayState, $Out2> $chain<$R2, $Out2>(

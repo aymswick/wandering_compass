@@ -6,6 +6,8 @@ class MorningArrivedEvent extends TodayEvent {}
 
 class NightArrivedEvent extends TodayEvent {}
 
+class ScheduleFetched extends TodayEvent {}
+
 class TimeElapsed extends TodayEvent {}
 
 @immutable

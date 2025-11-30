@@ -17,7 +17,8 @@ const double workingSpanMinutes =
 class TodayBloc extends Bloc<TodayEvent, TodayState> {
   TodayBloc(this.repository) : super(const TodayState(currentTick: 0)) {
     on<TimeElapsed>(_advanceTime);
-    _startTracking();
+    on<ScheduleFetched>(_setupHeadsUpDisplay);
+    _manualStart(); // TODO(ant): remove this and use proper cron/timing with multiplatform reliability
   }
 
   ScheduleRepository repository;
@@ -54,18 +55,25 @@ class TodayBloc extends Bloc<TodayEvent, TodayState> {
     final progress = rawProgress.clamp(
       0.0,
       1.0,
-    ); // Ensure it doesn't go over 1.0
+    );
 
     emit(state.copyWith(currentTick: progress));
   }
 
-  void _startTracking() {
-    // 1. Post the initial event right away
+  // Manual kickstart of the time ticker + manual recurring post
+  void _manualStart() {
     add(TimeElapsed());
-
-    // 2. Set up a periodic timer to post the event every second
+    add(ScheduleFetched());
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       add(TimeElapsed());
     });
+  }
+
+  Future<void> _setupHeadsUpDisplay(
+    ScheduleFetched event,
+    Emitter<TodayState> emit,
+  ) async {
+    // TODO(ant): grab this stuff properly from repository.
+    emit(state.copyWith(items: ['Test item 1']));
   }
 }
