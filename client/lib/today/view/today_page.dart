@@ -6,6 +6,36 @@ import 'package:wandering_compass_client/today/bloc/today_bloc.dart';
 import 'package:wandering_compass_client/today/view/clock_painter.dart';
 import 'package:wandering_compass_client/today/view/focus_items.dart';
 
+class CircularCountdownClock extends StatelessWidget {
+  const CircularCountdownClock({
+    required this.progress,
+    super.key,
+  });
+
+  /// Decimal between 0.0 and 1.0 representing day progress
+  final double progress;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+    return CustomPaint(
+      size: Size(size.height * .4, size.width / 2),
+      painter: ClockPainter(
+        dayProgressPercentage: progress,
+      ),
+      child: Center(
+        child: Text(
+          '${(progress * 100).toStringAsFixed(0)}%',
+          style: const TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class TodayPage extends StatelessWidget {
   const TodayPage({super.key});
 
@@ -28,29 +58,19 @@ class TodayView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.todayAppBarTitle)),
-      body: SizedBox.expand(
+      body: Padding(
+        padding: const EdgeInsets.all(8),
         child: BlocSelector<TodayBloc, TodayState, double>(
           selector: (state) => state.currentTick,
-          builder: (context, dayProgressPercentage) => Column(
+          builder: (context, dayProgressPercentage) => Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: CustomPaint(
-                  painter: ClockPainter(
-                    dayProgressPercentage: dayProgressPercentage,
-                  ),
-                  child: Center(
-                    child: Text(
-                      '${(dayProgressPercentage * 100).toStringAsFixed(0)}%',
-                      style: const TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                child: CircularCountdownClock(
+                  progress: dayProgressPercentage,
                 ),
               ),
-              const Flexible(child: FocusItems()),
+              const Expanded(child: Flexible(child: FocusItems())),
             ],
           ),
         ),

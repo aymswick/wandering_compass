@@ -37,8 +37,7 @@ class ClockPainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
 
-    final strokeWidth = size.width / 20;
-    final radius = (size.width - strokeWidth) / 2;
+    final radius = (size.width) / 2;
     final backgroundPaint = Paint()..color = Colors.white;
     final foregroundPaint = Paint()..color = color;
 
@@ -49,16 +48,18 @@ class ClockPainter extends CustomPainter {
 
     final top = Offset(
       center.dx - (topPainter.width / 2),
-      center.dy - radius - strokeWidth - (topPainter.height / 2),
+      center.dy - radius - (topPainter.height / 2),
     );
 
     final bottom = Offset(
       center.dx - (bottomPainter.width / 2),
-      center.dy + radius + strokeWidth - (bottomPainter.height / 2),
+      center.dy + radius - (bottomPainter.height / 2),
     );
 
-    topPainter.paint(canvas, top);
-    bottomPainter.paint(canvas, bottom);
+    const textOffset = Offset(0, 15);
+
+    topPainter.paint(canvas, top - textOffset);
+    bottomPainter.paint(canvas, bottom + textOffset);
 
     if (dayProgressPercentage < 100) {
       canvas

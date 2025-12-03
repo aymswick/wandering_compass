@@ -74,6 +74,10 @@ class TodayBloc extends Bloc<TodayEvent, TodayState> {
     Emitter<TodayState> emit,
   ) async {
     // TODO(ant): grab this stuff properly from repository.
-    emit(state.copyWith(items: ['Test item 1']));
+    emit(
+      state.copyWith(
+        items: ['Test item 1', 'Test item 2', 'Test item 1', 'Test item 1'],
+      ),
+    );
   }
 }

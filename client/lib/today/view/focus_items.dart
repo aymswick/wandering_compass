@@ -7,19 +7,22 @@ class FocusItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocSelector<TodayBloc, TodayState, List<String>>(
       selector: (state) {
         return state.items;
       },
       builder: (context, items) {
-        return ListView.separated(
+        return ListView.builder(
           shrinkWrap: true,
           itemCount: items.length,
           itemBuilder: (context, index) => ListTile(
-            leading: Text('$index'),
-            title: Text(items[index]),
+            leading: Text('$index', style: theme.textTheme.headlineSmall),
+            title: Text(
+              items[index],
+              style: theme.textTheme.headlineSmall,
+            ),
           ),
-          separatorBuilder: (context, index) => const Divider(),
         );
       },
     );
