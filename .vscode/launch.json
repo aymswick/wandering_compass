@@ -2,8 +2,6 @@
     "configurations": [
         {
             "args": [
-                "--flavor",
-                "development",
                 "--target",
                 "lib/main_development.dart"
             ],
