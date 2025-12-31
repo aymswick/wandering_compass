@@ -1,10 +1,14 @@
 name: schedule_repository
-description: A Very Good Project created by Very Good CLI.
+description: Schedule information repository
 version: 0.1.0+1
 publish_to: none
 
 environment:
   sdk: ^3.9.0
+
+dependencies: 
+  schedule_api:
+    path: '../schedule_api'
 
 dev_dependencies:
   mocktail: ^1.0.4

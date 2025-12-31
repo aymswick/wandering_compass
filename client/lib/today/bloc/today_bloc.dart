@@ -11,13 +11,13 @@ part 'today_event.dart';
 part 'today_state.dart';
 
 // TODO(ant): store this value in schedulerepo / user prefs
-const double workingSpanMinutes =
+const double workingSpanMinutes2 =
     900; // The total span of the working day in minutes (15 hours: 7 AM to 10 PM)
 
 class TodayBloc extends Bloc<TodayEvent, TodayState> {
   TodayBloc(this.repository) : super(const TodayState(currentTick: 0)) {
     on<TimeElapsed>(_advanceTime);
-    on<ScheduleFetched>(_setupHeadsUpDisplay);
+    on<ScheduleFetched>(_setupSchedule);
     _manualStart(); // TODO(ant): remove this and use proper cron/timing with multiplatform reliability
   }
 
@@ -35,6 +35,9 @@ class TodayBloc extends Bloc<TodayEvent, TodayState> {
     Emitter<TodayState> emit,
   ) async {
     final now = DateTime.now();
+
+    final workingMinutes = await repository.getWorkingHours() * 60;
+
     // Convert current time to a minute count starting from 7:00 AM
     var elapsedMinutes = 0;
 
@@ -47,11 +50,11 @@ class TodayBloc extends Bloc<TodayEvent, TodayState> {
           ((hoursElapsed * 60.0) + now.minute + (now.second / 60.0)).toInt();
     } else if (now.hour >= 22 || now.hour < 7) {
       // We set progress to 1.0 because the previous day's work finished at midnight.
-      elapsedMinutes = workingSpanMinutes.toInt();
+      elapsedMinutes = workingMinutes;
     }
 
     // 2. Calculate the progress percentage, clamped between 0.0 and 1.0
-    final rawProgress = elapsedMinutes / workingSpanMinutes;
+    final rawProgress = elapsedMinutes / workingMinutes;
     final progress = rawProgress.clamp(
       0.0,
       1.0,
@@ -64,18 +67,20 @@ class TodayBloc extends Bloc<TodayEvent, TodayState> {
   void _manualStart() {
     add(TimeElapsed());
     add(ScheduleFetched());
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
       add(TimeElapsed());
     });
   }
 
-  Future<void> _setupHeadsUpDisplay(
+  Future<void> _setupSchedule(
     ScheduleFetched event,
     Emitter<TodayState> emit,
   ) async {
-    // TODO(ant): grab this stuff properly from repository.
+    final workingHours = await repository.getWorkingHours();
+
     emit(
       state.copyWith(
+        workingHours: workingHours,
         items: ['Test item 1', 'Test item 2', 'Test item 1', 'Test item 1'],
       ),
     );

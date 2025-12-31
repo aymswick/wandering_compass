@@ -14,16 +14,22 @@ dependencies:
   build_runner: ^2.10.2
   clock: ^1.1.2
   dart_mappable: ^4.6.1
+  file_picker: ^10.3.8
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
   flutter_localizations:
     sdk: flutter
   formz: ^0.8.0
+  http: ^1.6.0
   intl: ^0.20.2
+  path_provider: ^2.1.5
+  schedule_api:
+    path: 'packages/schedule_api'
   schedule_repository:
     path: 'packages/schedule_repository'
   shared: 0.0.1
+  shared_preferences: ^2.5.4
 
 dev_dependencies:
   bloc_test: ^10.0.0

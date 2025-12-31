@@ -26,6 +26,13 @@ class TodayStateMapper extends ClassMapperBase<TodayState> {
     'currentTick',
     _$currentTick,
   );
+  static int _$workingHours(TodayState v) => v.workingHours;
+  static const Field<TodayState, int> _f$workingHours = Field(
+    'workingHours',
+    _$workingHours,
+    opt: true,
+    def: 24,
+  );
   static List<String> _$items(TodayState v) => v.items;
   static const Field<TodayState, List<String>> _f$items = Field(
     'items',
@@ -37,12 +44,14 @@ class TodayStateMapper extends ClassMapperBase<TodayState> {
   @override
   final MappableFields<TodayState> fields = const {
     #currentTick: _f$currentTick,
+    #workingHours: _f$workingHours,
     #items: _f$items,
   };
 
   static TodayState _instantiate(DecodingData data) {
     return TodayState(
       currentTick: data.dec(_f$currentTick),
+      workingHours: data.dec(_f$workingHours),
       items: data.dec(_f$items),
     );
   }
@@ -108,7 +117,7 @@ extension TodayStateValueCopy<$R, $Out>
 abstract class TodayStateCopyWith<$R, $In extends TodayState, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get items;
-  $R call({double? currentTick, List<String>? items});
+  $R call({double? currentTick, int? workingHours, List<String>? items});
   TodayStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -128,15 +137,18 @@ class _TodayStateCopyWithImpl<$R, $Out>
         (v) => call(items: v),
       );
   @override
-  $R call({double? currentTick, List<String>? items}) => $apply(
-    FieldCopyWithData({
-      if (currentTick != null) #currentTick: currentTick,
-      if (items != null) #items: items,
-    }),
-  );
+  $R call({double? currentTick, int? workingHours, List<String>? items}) =>
+      $apply(
+        FieldCopyWithData({
+          if (currentTick != null) #currentTick: currentTick,
+          if (workingHours != null) #workingHours: workingHours,
+          if (items != null) #items: items,
+        }),
+      );
   @override
   TodayState $make(CopyWithData data) => TodayState(
     currentTick: data.get(#currentTick, or: $value.currentTick),
+    workingHours: data.get(#workingHours, or: $value.workingHours),
     items: data.get(#items, or: $value.items),
   );
 
