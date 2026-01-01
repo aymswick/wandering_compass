@@ -36,7 +36,7 @@ class TodayBloc extends Bloc<TodayEvent, TodayState> {
   ) async {
     final now = DateTime.now();
 
-    final workingMinutes = await repository.getWorkingHours() * 60;
+    final workingMinutes = state.workingHours * 60;
 
     // Convert current time to a minute count starting from 7:00 AM
     var elapsedMinutes = 0;
@@ -66,7 +66,6 @@ class TodayBloc extends Bloc<TodayEvent, TodayState> {
   // Manual kickstart of the time ticker + manual recurring post
   void _manualStart() {
     add(TimeElapsed());
-    add(ScheduleFetched());
     _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
       add(TimeElapsed());
     });

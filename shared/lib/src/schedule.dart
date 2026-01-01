@@ -4,5 +4,17 @@ part 'schedule.mapper.dart';
 
 @MappableClass()
 class Schedule with ScheduleMappable {
-  const Schedule();
+  final int workingHours;
+
+  const Schedule({required this.workingHours});
 }
+
+
+// Open
+// Bootup
+// Launch
+// Work
+// Log
+// Off
+// Touchdown
+// Close

@@ -57,7 +57,8 @@
       "name": "shared",
       "version": "0.0.1",
       "dependencies": [
-        "build_runner"
+        "build_runner",
+        "logger"
       ],
       "devDependencies": [
         "dart_mappable",
@@ -86,6 +87,13 @@
         "collection",
         "meta",
         "type_plus"
+      ]
+    },
+    {
+      "name": "logger",
+      "version": "2.6.2",
+      "dependencies": [
+        "meta"
       ]
     },
     {
@@ -242,7 +250,9 @@
       "name": "schedule_api",
       "version": "0.1.0+1",
       "dependencies": [
-        "file_picker"
+        "file_picker",
+        "shared_preferences",
+        "toml"
       ]
     },
     {
@@ -889,6 +899,16 @@
       ]
     },
     {
+      "name": "toml",
+      "version": "0.18.0",
+      "dependencies": [
+        "collection",
+        "meta",
+        "petitparser",
+        "web"
+      ]
+    },
+    {
       "name": "path_provider_windows",
       "version": "2.3.0",
       "dependencies": [
@@ -1145,6 +1165,14 @@
       ]
     },
     {
+      "name": "petitparser",
+      "version": "7.0.1",
+      "dependencies": [
+        "collection",
+        "meta"
+      ]
+    },
+    {
       "name": "platform",
       "version": "3.1.6",
       "dependencies": []
@@ -1171,14 +1199,6 @@
         "collection",
         "meta",
         "petitparser"
-      ]
-    },
-    {
-      "name": "petitparser",
-      "version": "7.0.1",
-      "dependencies": [
-        "collection",
-        "meta"
       ]
     }
   ],
