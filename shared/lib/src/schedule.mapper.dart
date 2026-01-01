@@ -21,11 +21,32 @@ class ScheduleMapper extends ClassMapperBase<Schedule> {
   @override
   final String id = 'Schedule';
 
+  static int _$workingHours(Schedule v) => v.workingHours;
+  static const Field<Schedule, int> _f$workingHours = Field(
+    'workingHours',
+    _$workingHours,
+  );
+  static List<String> _$zones(Schedule v) => v.zones;
+  static const Field<Schedule, List<String>> _f$zones = Field('zones', _$zones);
+  static List<String> _$footholds(Schedule v) => v.footholds;
+  static const Field<Schedule, List<String>> _f$footholds = Field(
+    'footholds',
+    _$footholds,
+  );
+
   @override
-  final MappableFields<Schedule> fields = const {};
+  final MappableFields<Schedule> fields = const {
+    #workingHours: _f$workingHours,
+    #zones: _f$zones,
+    #footholds: _f$footholds,
+  };
 
   static Schedule _instantiate(DecodingData data) {
-    return Schedule();
+    return Schedule(
+      workingHours: data.dec(_f$workingHours),
+      zones: data.dec(_f$zones),
+      footholds: data.dec(_f$footholds),
+    );
   }
 
   @override
@@ -85,7 +106,9 @@ extension ScheduleValueCopy<$R, $Out> on ObjectCopyWith<$R, Schedule, $Out> {
 
 abstract class ScheduleCopyWith<$R, $In extends Schedule, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call();
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get zones;
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get footholds;
+  $R call({int? workingHours, List<String>? zones, List<String>? footholds});
   ScheduleCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -98,9 +121,34 @@ class _ScheduleCopyWithImpl<$R, $Out>
   late final ClassMapperBase<Schedule> $mapper =
       ScheduleMapper.ensureInitialized();
   @override
-  $R call() => $apply(FieldCopyWithData({}));
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get zones =>
+      ListCopyWith(
+        $value.zones,
+        (v, t) => ObjectCopyWith(v, $identity, t),
+        (v) => call(zones: v),
+      );
   @override
-  Schedule $make(CopyWithData data) => Schedule();
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get footholds =>
+      ListCopyWith(
+        $value.footholds,
+        (v, t) => ObjectCopyWith(v, $identity, t),
+        (v) => call(footholds: v),
+      );
+  @override
+  $R call({int? workingHours, List<String>? zones, List<String>? footholds}) =>
+      $apply(
+        FieldCopyWithData({
+          if (workingHours != null) #workingHours: workingHours,
+          if (zones != null) #zones: zones,
+          if (footholds != null) #footholds: footholds,
+        }),
+      );
+  @override
+  Schedule $make(CopyWithData data) => Schedule(
+    workingHours: data.get(#workingHours, or: $value.workingHours),
+    zones: data.get(#zones, or: $value.zones),
+    footholds: data.get(#footholds, or: $value.footholds),
+  );
 
   @override
   ScheduleCopyWith<$R2, Schedule, $Out2> $chain<$R2, $Out2>(

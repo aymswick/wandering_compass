@@ -243,7 +243,8 @@
       "name": "schedule_repository",
       "version": "0.1.0+1",
       "dependencies": [
-        "schedule_api"
+        "schedule_api",
+        "shared"
       ]
     },
     {
@@ -251,6 +252,7 @@
       "version": "0.1.0+1",
       "dependencies": [
         "file_picker",
+        "shared",
         "shared_preferences",
         "toml"
       ]

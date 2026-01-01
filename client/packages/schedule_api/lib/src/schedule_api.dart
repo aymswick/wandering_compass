@@ -1,3 +1,5 @@
+import 'package:shared/shared.dart';
+
 /// {@template schedule_api}
 /// Abstract interface to allow multiple Schedule providers
 /// {@endtemplate}
@@ -6,5 +8,5 @@ abstract interface class ScheduleApi {
   const ScheduleApi();
 
   // Returns a Schedule
-  Future<int> getSchedule();
+  Future<Schedule> getSchedule();
 }

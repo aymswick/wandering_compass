@@ -14,6 +14,7 @@ class TodayStateMapper extends ClassMapperBase<TodayState> {
   static TodayStateMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = TodayStateMapper._());
+      ScheduleMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -26,33 +27,24 @@ class TodayStateMapper extends ClassMapperBase<TodayState> {
     'currentTick',
     _$currentTick,
   );
-  static int _$workingHours(TodayState v) => v.workingHours;
-  static const Field<TodayState, int> _f$workingHours = Field(
-    'workingHours',
-    _$workingHours,
+  static Schedule _$schedule(TodayState v) => v.schedule;
+  static const Field<TodayState, Schedule> _f$schedule = Field(
+    'schedule',
+    _$schedule,
     opt: true,
-    def: 24,
-  );
-  static List<String> _$items(TodayState v) => v.items;
-  static const Field<TodayState, List<String>> _f$items = Field(
-    'items',
-    _$items,
-    opt: true,
-    def: const [],
+    def: const Schedule(workingHours: 1, zones: [''], footholds: ['']),
   );
 
   @override
   final MappableFields<TodayState> fields = const {
     #currentTick: _f$currentTick,
-    #workingHours: _f$workingHours,
-    #items: _f$items,
+    #schedule: _f$schedule,
   };
 
   static TodayState _instantiate(DecodingData data) {
     return TodayState(
       currentTick: data.dec(_f$currentTick),
-      workingHours: data.dec(_f$workingHours),
-      items: data.dec(_f$items),
+      schedule: data.dec(_f$schedule),
     );
   }
 
@@ -116,8 +108,8 @@ extension TodayStateValueCopy<$R, $Out>
 
 abstract class TodayStateCopyWith<$R, $In extends TodayState, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get items;
-  $R call({double? currentTick, int? workingHours, List<String>? items});
+  ScheduleCopyWith<$R, Schedule, Schedule> get schedule;
+  $R call({double? currentTick, Schedule? schedule});
   TodayStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -130,26 +122,19 @@ class _TodayStateCopyWithImpl<$R, $Out>
   late final ClassMapperBase<TodayState> $mapper =
       TodayStateMapper.ensureInitialized();
   @override
-  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get items =>
-      ListCopyWith(
-        $value.items,
-        (v, t) => ObjectCopyWith(v, $identity, t),
-        (v) => call(items: v),
-      );
+  ScheduleCopyWith<$R, Schedule, Schedule> get schedule =>
+      $value.schedule.copyWith.$chain((v) => call(schedule: v));
   @override
-  $R call({double? currentTick, int? workingHours, List<String>? items}) =>
-      $apply(
-        FieldCopyWithData({
-          if (currentTick != null) #currentTick: currentTick,
-          if (workingHours != null) #workingHours: workingHours,
-          if (items != null) #items: items,
-        }),
-      );
+  $R call({double? currentTick, Schedule? schedule}) => $apply(
+    FieldCopyWithData({
+      if (currentTick != null) #currentTick: currentTick,
+      if (schedule != null) #schedule: schedule,
+    }),
+  );
   @override
   TodayState $make(CopyWithData data) => TodayState(
     currentTick: data.get(#currentTick, or: $value.currentTick),
-    workingHours: data.get(#workingHours, or: $value.workingHours),
-    items: data.get(#items, or: $value.items),
+    schedule: data.get(#schedule, or: $value.schedule),
   );
 
   @override

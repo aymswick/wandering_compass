@@ -10,7 +10,7 @@ class FocusItems extends StatelessWidget {
     final theme = Theme.of(context);
     return BlocSelector<TodayBloc, TodayState, List<String>>(
       selector: (state) {
-        return state.items;
+        return state.schedule.footholds;
       },
       builder: (context, items) {
         return ListView.builder(

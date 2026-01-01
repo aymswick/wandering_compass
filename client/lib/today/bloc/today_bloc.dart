@@ -5,6 +5,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:meta/meta.dart';
 import 'package:schedule_repository/schedule_repository.dart'
     show ScheduleRepository;
+import 'package:shared/shared.dart';
 
 part 'today_bloc.mapper.dart';
 part 'today_event.dart';
@@ -36,7 +37,7 @@ class TodayBloc extends Bloc<TodayEvent, TodayState> {
   ) async {
     final now = DateTime.now();
 
-    final workingMinutes = state.workingHours * 60;
+    final workingMinutes = state.schedule.workingHours * 60;
 
     // Convert current time to a minute count starting from 7:00 AM
     var elapsedMinutes = 0;
@@ -75,12 +76,11 @@ class TodayBloc extends Bloc<TodayEvent, TodayState> {
     ScheduleFetched event,
     Emitter<TodayState> emit,
   ) async {
-    final workingHours = await repository.getWorkingHours();
+    final schedule = await repository.getSchedule();
 
     emit(
       state.copyWith(
-        workingHours: workingHours,
-        items: ['Test item 1', 'Test item 2', 'Test item 1', 'Test item 1'],
+        schedule: schedule,
       ),
     );
   }

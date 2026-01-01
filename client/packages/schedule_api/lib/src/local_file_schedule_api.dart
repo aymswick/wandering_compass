@@ -17,15 +17,27 @@ class LocalFileScheduleApi implements ScheduleApi {
   @override
   Future<Schedule> getSchedule() async {
     final config = await loadConfig();
-    return Schedule(workingHours: config['schedule']['working_hours'] as int);
+    return Schedule(
+      workingHours: config['schedule']['working_hours'] as int,
+      zones: config['schedule']['zones'] as List<String>,
+      footholds: config['schedule']['footholds'] as List<String>,
+    );
   }
 
   /// Reads a simple schedule config in TOML format
   Future<Map<String, dynamic>> loadConfig() async {
     try {
-      final result = await FilePicker.platform.pickFiles();
+      var configPath = await _sharedPrefs.getString('config_file_path');
 
-      final file = File(result!.files.single.path!);
+      if (configPath == null) {
+        final result = await FilePicker.platform.pickFiles();
+        configPath = result!.files.single.path;
+      }
+
+      final file = File(configPath!);
+
+      await _sharedPrefs.setString('config_file_path', configPath);
+
       final content = await file.readAsString();
       final config = TomlDocument.parse(content).toMap();
 

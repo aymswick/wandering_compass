@@ -5,16 +5,12 @@ part 'schedule.mapper.dart';
 @MappableClass()
 class Schedule with ScheduleMappable {
   final int workingHours;
+  final List<String> zones;
+  final List<String> footholds;
 
-  const Schedule({required this.workingHours});
+  const Schedule({
+    required this.workingHours,
+    required this.zones,
+    required this.footholds,
+  });
 }
-
-
-// Open
-// Bootup
-// Launch
-// Work
-// Log
-// Off
-// Touchdown
-// Close

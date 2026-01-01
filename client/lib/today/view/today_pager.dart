@@ -57,6 +57,17 @@ class TodayView extends StatelessWidget {
     final l10n = context.l10n;
     final bloc = context.read<TodayBloc>();
 
+    const zones = <String>[
+      'Open',
+      'Bootup',
+      'Launch',
+      'Work',
+      'Log',
+      'Off',
+      'Touchdown',
+      'Close',
+    ];
+
     return Scaffold(
       appBar: AppBar(title: Text(l10n.todayAppBarTitle)),
       body: Padding(
@@ -65,22 +76,30 @@ class TodayView extends StatelessWidget {
           selector: (state) => state.currentTick,
           builder: (context, dayProgressPercentage) => PageView.builder(
             itemBuilder: (context, index) => switch (index) {
-              (0) => Center(
-                child: ElevatedButton.icon(
-                  icon: const Icon(Icons.file_open),
-                  label: const Text('Choose config file'),
-                  onPressed: () => bloc.add(ScheduleFetched()),
-                ),
+              (0) => Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.file_open),
+                    label: const Text('Choose config file'),
+                    onPressed: () => bloc.add(ScheduleFetched()),
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: zones.length,
+                    itemBuilder: (context, index) => ListTile(
+                      title: Text(zones[index]),
+                    ),
+                  ),
+                ],
               ),
-              (1) => Expanded(
-                child: CircularCountdownClock(
-                  progress: dayProgressPercentage,
-                ),
+              (1) => CircularCountdownClock(
+                progress: dayProgressPercentage,
               ),
-              (2) => const Expanded(child: Flexible(child: FocusItems())),
+              (2) => const FocusItems(),
               (_) => const Text('howd u get here??'),
             },
-            itemCount: 2,
+            itemCount: 3,
           ),
         ),
       ),
