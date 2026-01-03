@@ -11,7 +11,6 @@ class LocalFileScheduleApi implements ScheduleApi {
   /// Initializes a schedule from config file
   LocalFileScheduleApi() : _sharedPrefs = SharedPreferencesAsync();
 
-  /// SharedPrefs used to store path of user's Schedule config file (.toml)
   final SharedPreferencesAsync _sharedPrefs;
 
   @override
@@ -27,17 +26,9 @@ class LocalFileScheduleApi implements ScheduleApi {
   /// Reads a simple schedule config in TOML format
   Future<Map<String, dynamic>> loadConfig() async {
     try {
-      var configPath = await _sharedPrefs.getString('config_file_path');
+      final result = await FilePicker.platform.pickFiles();
 
-      if (configPath == null) {
-        final result = await FilePicker.platform.pickFiles();
-        configPath = result!.files.single.path;
-      }
-
-      final file = File(configPath!);
-
-      await _sharedPrefs.setString('config_file_path', configPath);
-
+      final file = File(result!.files.single.path!);
       final content = await file.readAsString();
       final config = TomlDocument.parse(content).toMap();
 

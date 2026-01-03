@@ -24,9 +24,10 @@
         "flutter",
         "flutter_bloc",
         "flutter_localizations",
-        "formz",
+        "go_router",
         "http",
         "intl",
+        "mocktail",
         "path_provider",
         "schedule_api",
         "schedule_repository",
@@ -37,7 +38,6 @@
         "bloc_test",
         "dart_mappable_builder",
         "flutter_test",
-        "mocktail",
         "very_good_analysis"
       ]
     },
@@ -243,6 +243,7 @@
       "name": "schedule_repository",
       "version": "0.1.0+1",
       "dependencies": [
+        "mocktail",
         "schedule_api",
         "shared"
       ]
@@ -289,9 +290,13 @@
       ]
     },
     {
-      "name": "formz",
-      "version": "0.8.0",
+      "name": "go_router",
+      "version": "17.0.1",
       "dependencies": [
+        "collection",
+        "flutter",
+        "flutter_web_plugins",
+        "logging",
         "meta"
       ]
     },
@@ -962,6 +967,13 @@
       "dependencies": []
     },
     {
+      "name": "flutter_web_plugins",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter"
+      ]
+    },
+    {
       "name": "provider",
       "version": "6.1.5+1",
       "dependencies": [
@@ -1027,13 +1039,6 @@
     {
       "name": "flutter_plugin_android_lifecycle",
       "version": "2.0.33",
-      "dependencies": [
-        "flutter"
-      ]
-    },
-    {
-      "name": "flutter_web_plugins",
-      "version": "0.0.0",
       "dependencies": [
         "flutter"
       ]

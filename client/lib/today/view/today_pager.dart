@@ -1,41 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:schedule_repository/schedule_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wandering_compass_client/l10n/l10n.dart';
 import 'package:wandering_compass_client/today/bloc/today_bloc.dart';
-import 'package:wandering_compass_client/today/view/clock_painter.dart';
+import 'package:wandering_compass_client/today/view/clock/circular_countdown_clock.dart';
 import 'package:wandering_compass_client/today/view/focus_items.dart'
     show FocusItems;
-
-class CircularCountdownClock extends StatelessWidget {
-  const CircularCountdownClock({
-    required this.progress,
-    super.key,
-  });
-
-  /// Decimal between 0.0 and 1.0 representing day progress
-  final double progress;
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-    return CustomPaint(
-      size: Size(size.height * .4, size.width / 2),
-      painter: ClockPainter(
-        dayProgressPercentage: progress,
-      ),
-      child: Center(
-        child: Text(
-          '${(progress * 100).toStringAsFixed(0)}%',
-          style: const TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class TodayPage extends StatelessWidget {
   const TodayPage({super.key});
@@ -83,6 +55,18 @@ class TodayView extends StatelessWidget {
                     icon: const Icon(Icons.file_open),
                     label: const Text('Choose config file'),
                     onPressed: () => bloc.add(ScheduleFetched()),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await SharedPreferencesAsync().setBool(
+                        'has_completed_onboarding',
+                        false,
+                      );
+                      if (context.mounted) {
+                        context.go('/');
+                      }
+                    },
+                    child: const Text('Reset'),
                   ),
                   ListView.builder(
                     shrinkWrap: true,

@@ -7,12 +7,12 @@ environment:
   sdk: ^3.9.0
 
 dependencies: 
+ mocktail: ^1.0.4
  schedule_api:
     path: '../schedule_api'
  shared:
     path: '../../../shared'
  
 dev_dependencies:
-  mocktail: ^1.0.4
   test: ^1.26.3
   very_good_analysis: ^10.0.0

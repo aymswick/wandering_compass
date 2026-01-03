@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart' show RepositoryProvider;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:schedule_api/schedule_api.dart';
 import 'package:schedule_repository/schedule_repository.dart';
+import 'package:wandering_compass_client/app/router.dart';
+import 'package:wandering_compass_client/app/theme.dart';
 import 'package:wandering_compass_client/l10n/l10n.dart';
-import 'package:wandering_compass_client/today/view/today_pager.dart';
 
 class App extends StatelessWidget {
   const App({required this.scheduleApiClient, super.key});
 
-  final LocalFileScheduleApi scheduleApiClient;
+  final ScheduleApi scheduleApiClient;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.red,
-        ),
-        useMaterial3: true,
-      ),
+    return MaterialApp.router(
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: RepositoryProvider(
-        create: (context) => ScheduleRepository(api: scheduleApiClient),
-        child: const TodayPage(),
-      ),
+      routerConfig: appRouter,
+      builder: (context, child) {
+        return RepositoryProvider(
+          create: (context) => ScheduleRepository(api: LocalFileScheduleApi()),
+          child: Scaffold(
+            body: child ?? ErrorWidget.withDetails(),
+          ),
+        );
+      },
     );
   }
 }
