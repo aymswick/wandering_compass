@@ -638,6 +638,12 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "stormberry",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/stormberry-0.18.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
       "name": "stream_channel",
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/stream_channel-2.1.4",
       "packageUri": "lib/",

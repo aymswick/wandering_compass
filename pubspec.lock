@@ -832,6 +832,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.12.1"
+  stormberry:
+    dependency: transitive
+    description:
+      name: stormberry
+      sha256: c3d369deea159729cbb2c78d1aa50acb4318e1b625343b1e069ddd4cd052c78c
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.18.0"
   stream_channel:
     dependency: transitive
     description:

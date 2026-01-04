@@ -48,7 +48,8 @@
         "dart_frog",
         "dart_frog_auth",
         "postgres",
-        "shared"
+        "shared",
+        "stormberry"
       ],
       "devDependencies": [
         "dart_frog_lint",
@@ -181,6 +182,24 @@
       "name": "dart_frog_lint",
       "version": "0.1.2",
       "dependencies": []
+    },
+    {
+      "name": "stormberry",
+      "version": "0.18.0",
+      "dependencies": [
+        "analyzer",
+        "args",
+        "build",
+        "collection",
+        "crypto",
+        "dart_style",
+        "file",
+        "glob",
+        "path",
+        "postgres",
+        "source_gen",
+        "yaml"
+      ]
     },
     {
       "name": "postgres",
@@ -821,6 +840,14 @@
       ]
     },
     {
+      "name": "file",
+      "version": "7.0.1",
+      "dependencies": [
+        "meta",
+        "path"
+      ]
+    },
+    {
       "name": "charcode",
       "version": "1.4.0",
       "dependencies": []
@@ -1083,14 +1110,6 @@
       "version": "1.4.1",
       "dependencies": [
         "source_span"
-      ]
-    },
-    {
-      "name": "file",
-      "version": "7.0.1",
-      "dependencies": [
-        "meta",
-        "path"
       ]
     },
     {

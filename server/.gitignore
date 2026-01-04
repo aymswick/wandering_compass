@@ -1,5 +1,7 @@
 # See https://www.dartlang.org/guides/libraries/private-files
 
+.envrc
+
 # Files and directories created by the Operating System
 .DS_Store
 
