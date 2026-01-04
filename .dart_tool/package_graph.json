@@ -45,7 +45,10 @@
       "name": "server",
       "version": "1.0.0+1",
       "dependencies": [
-        "dart_frog"
+        "dart_frog",
+        "dart_frog_auth",
+        "postgres",
+        "shared"
       ],
       "devDependencies": [
         "dart_frog_lint",
@@ -178,6 +181,28 @@
       "name": "dart_frog_lint",
       "version": "0.1.2",
       "dependencies": []
+    },
+    {
+      "name": "postgres",
+      "version": "3.5.9",
+      "dependencies": [
+        "async",
+        "buffer",
+        "charcode",
+        "collection",
+        "crypto",
+        "meta",
+        "pool",
+        "stack_trace",
+        "stream_channel"
+      ]
+    },
+    {
+      "name": "dart_frog_auth",
+      "version": "1.2.2",
+      "dependencies": [
+        "dart_frog"
+      ]
     },
     {
       "name": "dart_frog",
@@ -794,6 +819,16 @@
         "source_span",
         "string_scanner"
       ]
+    },
+    {
+      "name": "charcode",
+      "version": "1.4.0",
+      "dependencies": []
+    },
+    {
+      "name": "buffer",
+      "version": "1.2.3",
+      "dependencies": []
     },
     {
       "name": "shelf_hotreload",

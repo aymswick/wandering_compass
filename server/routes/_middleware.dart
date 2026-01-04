@@ -1,7 +1,17 @@
 import 'package:dart_frog/dart_frog.dart';
 
 Handler middleware(Handler handler) {
-  handler.use(requestLogger());
+  handler.use(requestLogger())
+  // .use(
+  //   basicAuthentication<User>(
+  //     authenticator: (context, username, password) {
+  //       final userRepository = context.read<UserRepository>();
+  //       return userRepository.fetchFromCredentials(username, password);
+  //     },
+  //   ),
+  // )
+  ;
+
   return (context) async {
     // Execute code before request is handled.
 

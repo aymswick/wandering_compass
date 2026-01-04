@@ -50,6 +50,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "buffer",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/buffer-1.2.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "build",
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/build-4.0.3",
       "packageUri": "lib/",
@@ -90,6 +96,12 @@
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/characters-1.4.0",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "charcode",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/charcode-1.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "checked_yaml",
@@ -148,6 +160,12 @@
     {
       "name": "dart_frog",
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/dart_frog-1.2.6",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "dart_frog_auth",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/dart_frog_auth-1.2.2",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -474,6 +492,12 @@
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/pool-1.5.2",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "postgres",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/postgres-3.5.9",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
     },
     {
       "name": "provider",

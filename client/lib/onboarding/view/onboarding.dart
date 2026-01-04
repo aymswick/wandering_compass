@@ -21,7 +21,7 @@ class _OnboardingState extends State<Onboarding> {
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
-          spacing: 4,
+          spacing: 8,
           children: <Widget>[
             TextFormField(
               decoration: const InputDecoration(
@@ -57,27 +57,32 @@ class _OnboardingState extends State<Onboarding> {
                 return null;
               },
             ),
-            ElevatedButton.icon(
-              onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-                  );
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Processing Data')),
+                      );
 
-                  await SharedPreferencesAsync().setBool(
-                    'has_completed_onboarding',
-                    true,
-                  );
+                      await SharedPreferencesAsync().setBool(
+                        'has_completed_onboarding',
+                        true,
+                      );
 
-                  if (context.mounted) {
-                    context.go('/');
-                  }
+                      if (context.mounted) {
+                        context.go('/');
+                      }
 
-                  // TODO(ant): store values in shared_prefs
-                }
-              },
-              label: const Text('Continue'),
-              icon: const Icon(Icons.arrow_forward),
+                      // TODO(ant): store values in shared_prefs
+                    }
+                  },
+                  label: const Text('Continue'),
+                  icon: const Icon(Icons.arrow_forward),
+                ),
+              ],
             ),
           ],
         ),
