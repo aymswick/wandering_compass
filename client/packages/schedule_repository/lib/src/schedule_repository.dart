@@ -1,15 +1,15 @@
 import 'package:schedule_api/schedule_api.dart';
 import 'package:shared/shared.dart';
 
-/// {@template schedule_repository}
-/// Repository for Schedule data
+/// {@template wanderers_compass_repository}
+/// Repository for Wanderers' Compass app data
 /// {@endtemplate}
-class ScheduleRepository {
-  /// {@macro schedule_repository}
-  const ScheduleRepository({required this.api});
+class CompassRepository {
+  /// {@macro wandering_compass_repository}
+  const CompassRepository({required this.api});
 
   /// API client for Schedule information
-  final ScheduleApi api;
+  final WanderersCompassApi api;
 
   /// Get the full schedule for a user
   Future<Schedule> getSchedule() async {

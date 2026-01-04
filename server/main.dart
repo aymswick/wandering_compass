@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
-import 'package:postgres/postgres.dart';
 import 'package:shared/shared.dart';
+import 'package:stormberry/stormberry.dart';
 
-late final Pool pool;
+late final Database db;
 
 /// Any code initialized within this method will only run on server start, any hot reloads
 /// afterwards will not trigger this method until a hot restart.
@@ -15,24 +15,22 @@ Future<void> init(InternetAddress ip, int port) async {
   final dbPassword = Platform.environment['COMPASS_DB_PASSWORD'];
   final dbUser = Platform.environment['COMPASS_DB_USER'];
 
-  pool = Pool.withEndpoints(
-    [
-      Endpoint(
-        host: dbHost!,
-        database: dbName!,
-        username: dbUser,
-        password: dbPassword,
-      ),
-    ],
-    settings: const PoolSettings(
-      maxConnectionCount: 5,
-      sslMode: SslMode.disable, // TODO(ant): Enable this for production!
-    ),
+  db = Database(
+    host: dbHost,
+    port: 5432,
+    database: dbName,
+    username: dbUser,
+    password: dbPassword,
+    useSSL: false,
   );
 }
 
 Future<HttpServer> run(Handler handler, InternetAddress ip, int port) async {
-  // 1. Execute any custom code prior to starting the server...
+  // Listen for shutdown and close the pool
+  ProcessSignal.sigint.watch().listen((_) async {
+    await db.close();
+    exit(0);
+  });
 
   // final chain = Platform.script
   //     .resolve('certificates/server_chain.pem')
@@ -45,17 +43,20 @@ Future<HttpServer> run(Handler handler, InternetAddress ip, int port) async {
   //   ..useCertificateChain(chain)
   //   ..usePrivateKey(key, password: 'VeryGoodPassword');
 
-  // 2. Optional: Warm up the pool/test connection
+  // Warm up the pool/test connection
   try {
-    await pool.execute('SELECT 1');
+    logger.d(await db.schedules.querySchedules());
     logger.i('✅ Database connection pool initialized.');
   } catch (e) {
     logger.e('❌ Failed to connect to database: $e');
-    exit(1);
   }
+
   // TODO(ant): add securityContext here to enable https
   return serve(
-    handler,
+    handler
+        .use(provider<ScheduleRepository>((context) => db.schedules))
+        .use(provider<ZoneRepository>((context) => db.zones))
+        .use(provider<FootholdRepository>((context) => db.footholds)),
     ip,
     port,
   );

@@ -4,13 +4,9 @@ part of 'today_bloc.dart';
 class TodayState with TodayStateMappable {
   const TodayState({
     required this.currentTick,
-    this.schedule = const Schedule(
-      workingHours: 1,
-      zones: [''],
-      footholds: [''],
-    ),
+    this.schedule,
   });
 
   final double currentTick;
-  final Schedule schedule;
+  final Schedule? schedule;
 }

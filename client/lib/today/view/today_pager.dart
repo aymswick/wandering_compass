@@ -15,7 +15,7 @@ class TodayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => TodayBloc(context.read<ScheduleRepository>()),
+      create: (_) => TodayBloc(context.read<CompassRepository>()),
       child: const TodayView(),
     );
   }

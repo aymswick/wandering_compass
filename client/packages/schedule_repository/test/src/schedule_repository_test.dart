@@ -12,7 +12,12 @@ void main() {
       mockScheduleApi = MockLocalFileScheduleApi();
     });
     test('can be instantiated', () {
-      expect(ScheduleRepository(api: mockScheduleApi), isNotNull);
+      expect(
+        CompassRepository.WanderersCompassRepository(
+          api: mockScheduleApi,
+        ),
+        isNotNull,
+      );
     });
   });
 }

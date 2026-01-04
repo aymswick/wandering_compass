@@ -21,12 +21,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   go_router: ^17.0.1
-  http: ^1.6.0
   intl: ^0.20.2
   mocktail: ^1.0.4
   path_provider: ^2.1.5
-  schedule_api:
-    path: 'packages/schedule_api'
   schedule_repository:
     path: 'packages/schedule_repository'
   shared: 0.0.1
