@@ -1,7 +1,7 @@
+import 'package:compass_repository/compass_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:schedule_repository/schedule_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wandering_compass_client/l10n/l10n.dart';
 import 'package:wandering_compass_client/today/bloc/today_bloc.dart';

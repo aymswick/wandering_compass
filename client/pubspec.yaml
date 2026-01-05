@@ -1,5 +1,5 @@
 name: wandering_compass_client
-description: a portable compass for wanderers; a primitive calendar for aliens
+description: a compass for wanderers; a calendar for aliens
 version: 1.0.0+1
 publish_to: none
 
@@ -13,6 +13,10 @@ dependencies:
   bloc: ^9.0.1
   build_runner: ^2.10.2
   clock: ^1.1.2
+  compass_api:
+    path: 'packages/compass_api'
+  compass_repository:
+    path: 'packages/compass_repository'
   dart_mappable: ^4.6.1
   file_picker: ^10.3.8
   flutter:
@@ -24,8 +28,6 @@ dependencies:
   intl: ^0.20.2
   mocktail: ^1.0.4
   path_provider: ^2.1.5
-  schedule_repository:
-    path: 'packages/schedule_repository'
   shared: 0.0.1
   shared_preferences: ^2.5.4
 

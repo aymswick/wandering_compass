@@ -19,6 +19,8 @@
         "bloc",
         "build_runner",
         "clock",
+        "compass_api",
+        "compass_repository",
         "dart_mappable",
         "file_picker",
         "flutter",
@@ -28,7 +30,6 @@
         "intl",
         "mocktail",
         "path_provider",
-        "schedule_repository",
         "shared",
         "shared_preferences"
       ],
@@ -43,8 +44,10 @@
       "name": "server",
       "version": "1.0.0+1",
       "dependencies": [
+        "compass_datasource",
         "dart_frog",
         "dart_frog_auth",
+        "pg_compass_datasource",
         "postgres",
         "shared",
         "stormberry"
@@ -60,8 +63,7 @@
       "version": "0.0.1",
       "dependencies": [
         "build_runner",
-        "logger",
-        "stormberry"
+        "logger"
       ],
       "devDependencies": [
         "dart_mappable",
@@ -90,24 +92,6 @@
         "collection",
         "meta",
         "type_plus"
-      ]
-    },
-    {
-      "name": "stormberry",
-      "version": "0.18.0",
-      "dependencies": [
-        "analyzer",
-        "args",
-        "build",
-        "collection",
-        "crypto",
-        "dart_style",
-        "file",
-        "glob",
-        "path",
-        "postgres",
-        "source_gen",
-        "yaml"
       ]
     },
     {
@@ -201,6 +185,24 @@
       "dependencies": []
     },
     {
+      "name": "stormberry",
+      "version": "0.18.0",
+      "dependencies": [
+        "analyzer",
+        "args",
+        "build",
+        "collection",
+        "crypto",
+        "dart_style",
+        "file",
+        "glob",
+        "path",
+        "postgres",
+        "source_gen",
+        "yaml"
+      ]
+    },
+    {
       "name": "postgres",
       "version": "3.5.9",
       "dependencies": [
@@ -213,6 +215,16 @@
         "pool",
         "stack_trace",
         "stream_channel"
+      ]
+    },
+    {
+      "name": "pg_compass_datasource",
+      "version": "0.1.0+1",
+      "dependencies": [
+        "compass_datasource",
+        "postgres",
+        "shared",
+        "stormberry"
       ]
     },
     {
@@ -233,6 +245,13 @@
         "shelf",
         "shelf_hotreload",
         "shelf_static"
+      ]
+    },
+    {
+      "name": "compass_datasource",
+      "version": "0.1.0+1",
+      "dependencies": [
+        "shared"
       ]
     },
     {
@@ -280,15 +299,6 @@
         "shared_preferences_platform_interface",
         "shared_preferences_web",
         "shared_preferences_windows"
-      ]
-    },
-    {
-      "name": "schedule_repository",
-      "version": "0.1.0+1",
-      "dependencies": [
-        "mocktail",
-        "schedule_api",
-        "shared"
       ]
     },
     {
@@ -367,6 +377,26 @@
         "plugin_platform_interface",
         "web",
         "win32"
+      ]
+    },
+    {
+      "name": "compass_repository",
+      "version": "0.1.0+1",
+      "dependencies": [
+        "compass_api",
+        "mocktail",
+        "shared"
+      ]
+    },
+    {
+      "name": "compass_api",
+      "version": "0.1.0+1",
+      "dependencies": [
+        "file_picker",
+        "http",
+        "shared",
+        "shared_preferences",
+        "toml"
       ]
     },
     {
@@ -486,26 +516,6 @@
       ]
     },
     {
-      "name": "file",
-      "version": "7.0.1",
-      "dependencies": [
-        "meta",
-        "path"
-      ]
-    },
-    {
-      "name": "crypto",
-      "version": "3.0.7",
-      "dependencies": [
-        "typed_data"
-      ]
-    },
-    {
-      "name": "args",
-      "version": "2.7.0",
-      "dependencies": []
-    },
-    {
       "name": "web_socket_channel",
       "version": "3.0.3",
       "dependencies": [
@@ -613,6 +623,13 @@
       ]
     },
     {
+      "name": "crypto",
+      "version": "3.0.7",
+      "dependencies": [
+        "typed_data"
+      ]
+    },
+    {
       "name": "convert",
       "version": "3.1.2",
       "dependencies": [
@@ -680,6 +697,11 @@
         "collection",
         "meta"
       ]
+    },
+    {
+      "name": "args",
+      "version": "2.7.0",
+      "dependencies": []
     },
     {
       "name": "webkit_inspection_protocol",
@@ -827,6 +849,14 @@
       ]
     },
     {
+      "name": "file",
+      "version": "7.0.1",
+      "dependencies": [
+        "meta",
+        "path"
+      ]
+    },
+    {
       "name": "charcode",
       "version": "1.4.0",
       "dependencies": []
@@ -944,17 +974,6 @@
       "dependencies": [
         "flutter",
         "shared_preferences_platform_interface"
-      ]
-    },
-    {
-      "name": "schedule_api",
-      "version": "0.1.0+1",
-      "dependencies": [
-        "file_picker",
-        "http",
-        "shared",
-        "shared_preferences",
-        "toml"
       ]
     },
     {
@@ -1086,6 +1105,26 @@
       ]
     },
     {
+      "name": "toml",
+      "version": "0.18.0",
+      "dependencies": [
+        "collection",
+        "meta",
+        "petitparser",
+        "web"
+      ]
+    },
+    {
+      "name": "http",
+      "version": "1.6.0",
+      "dependencies": [
+        "async",
+        "http_parser",
+        "meta",
+        "web"
+      ]
+    },
+    {
       "name": "string_scanner",
       "version": "1.4.1",
       "dependencies": [
@@ -1203,26 +1242,6 @@
         "meta",
         "path",
         "vm_service"
-      ]
-    },
-    {
-      "name": "toml",
-      "version": "0.18.0",
-      "dependencies": [
-        "collection",
-        "meta",
-        "petitparser",
-        "web"
-      ]
-    },
-    {
-      "name": "http",
-      "version": "1.6.0",
-      "dependencies": [
-        "async",
-        "http_parser",
-        "meta",
-        "web"
       ]
     },
     {

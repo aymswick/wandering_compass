@@ -24,7 +24,7 @@ final appRouter = GoRouter(
       routes: [
         GoRoute(
           path: 'onboarding',
-          builder: (context, state) => const Onboarding(),
+          builder: (context, state) => const OnboardingPage(),
         ),
       ],
     ),

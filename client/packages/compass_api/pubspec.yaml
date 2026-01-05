@@ -1,0 +1,19 @@
+name: compass_api
+description: API for Compass (this monorepo app) data
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ^3.9.0
+
+dev_dependencies:
+  mocktail: ^1.0.4
+  test: ^1.26.3
+  very_good_analysis: ^10.0.0
+dependencies:
+  file_picker: ^10.3.8
+  http: ^1.6.0
+  shared:
+    path: '../../../shared'
+  shared_preferences: ^2.5.4
+  toml: ^0.18.0

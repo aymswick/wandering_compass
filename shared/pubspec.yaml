@@ -8,7 +8,6 @@ resolution: workspace
 dependencies:
   build_runner: ^2.7.1
   logger: ^2.6.2
-  stormberry: ^0.18.0
 
 
 dev_dependencies:

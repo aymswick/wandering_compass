@@ -134,6 +134,24 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "compass_api",
+      "rootUri": "../client/packages/compass_api",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
+    },
+    {
+      "name": "compass_datasource",
+      "rootUri": "../server/packages/compass_datasource",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
+    },
+    {
+      "name": "compass_repository",
+      "rootUri": "../client/packages/compass_repository",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
+    },
+    {
       "name": "convert",
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/convert-3.1.2",
       "packageUri": "lib/",
@@ -476,6 +494,12 @@
       "languageVersion": "3.8"
     },
     {
+      "name": "pg_compass_datasource",
+      "rootUri": "../server/packages/pg_compass_datasource",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
+    },
+    {
       "name": "platform",
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/platform-3.1.6",
       "packageUri": "lib/",
@@ -516,18 +540,6 @@
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/pubspec_parse-1.5.0",
       "packageUri": "lib/",
       "languageVersion": "3.6"
-    },
-    {
-      "name": "schedule_api",
-      "rootUri": "../client/packages/schedule_api",
-      "packageUri": "lib/",
-      "languageVersion": "3.9"
-    },
-    {
-      "name": "schedule_repository",
-      "rootUri": "../client/packages/schedule_repository",
-      "packageUri": "lib/",
-      "languageVersion": "3.9"
     },
     {
       "name": "shared_preferences",

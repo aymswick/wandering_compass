@@ -1,9 +1,9 @@
 import 'dart:async' show Timer;
 
 import 'package:bloc/bloc.dart';
+import 'package:compass_repository/compass_repository.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:meta/meta.dart';
-import 'package:schedule_repository/schedule_repository.dart';
 import 'package:shared/shared.dart';
 
 part 'today_bloc.mapper.dart';
@@ -14,7 +14,6 @@ class TodayBloc extends Bloc<TodayEvent, TodayState> {
   TodayBloc(this.repository) : super(const TodayState(currentTick: 0)) {
     on<TimeElapsed>(_advanceTime);
     on<ScheduleFetched>(_setupSchedule);
-    _manualStart(); // TODO(ant): remove this and use proper cron/timing with multiplatform reliability
   }
 
   CompassRepository repository;
@@ -32,7 +31,7 @@ class TodayBloc extends Bloc<TodayEvent, TodayState> {
   ) async {
     final now = DateTime.now();
 
-    final workingMinutes = state.schedule!.workingHours * 60;
+    final workingMinutes = state.schedule!.workingHours! * 60;
 
     // Convert current time to a minute count starting from 7:00 AM
     var elapsedMinutes = 0;
@@ -59,19 +58,16 @@ class TodayBloc extends Bloc<TodayEvent, TodayState> {
     emit(state.copyWith(currentTick: progress));
   }
 
-  // Manual kickstart of the time ticker + manual recurring post
-  void _manualStart() {
-    add(TimeElapsed());
-    _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
-      add(TimeElapsed());
-    });
-  }
-
   Future<void> _setupSchedule(
     ScheduleFetched event,
     Emitter<TodayState> emit,
   ) async {
     final schedule = await repository.getSchedule();
+
+    add(TimeElapsed());
+    _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
+      add(TimeElapsed());
+    });
 
     emit(
       state.copyWith(

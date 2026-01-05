@@ -1,21 +1,42 @@
+import 'package:compass_repository/compass_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wandering_compass_client/onboarding/bloc/onboarding_bloc.dart';
 
-class Onboarding extends StatefulWidget {
-  const Onboarding({super.key});
-
-  @override
-  State<Onboarding> createState() => _OnboardingState();
-}
-
-class _OnboardingState extends State<Onboarding> {
-  final _formKey = GlobalKey<FormState>();
+class OnboardingPage extends StatelessWidget {
+  const OnboardingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
+    return RepositoryProvider(
+      create: (_) =>
+          OnboardingBloc(repository: context.read<CompassRepository>()),
+      child: const OnboardingView(),
+    );
+  }
+}
+
+class OnboardingView extends StatefulWidget {
+  const OnboardingView({super.key});
+
+  @override
+  State<OnboardingView> createState() => _OnboardingViewState();
+}
+
+class _OnboardingViewState extends State<OnboardingView> {
+  final _formKey = GlobalKey<FormState>();
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController workingHoursController = TextEditingController();
+  TextEditingController zonesController = TextEditingController();
+  TextEditingController footholdsController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    final bloc = context.read<OnboardingBloc>();
     return Form(
       key: _formKey,
       child: Padding(
@@ -24,6 +45,19 @@ class _OnboardingState extends State<Onboarding> {
           spacing: 8,
           children: <Widget>[
             TextFormField(
+              controller: nameController,
+              decoration: const InputDecoration(
+                labelText: 'Name',
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter name for this schedule';
+                }
+                return null;
+              },
+            ),
+            TextFormField(
+              controller: workingHoursController,
               decoration: const InputDecoration(
                 labelText: 'Working Hours',
               ),
@@ -36,6 +70,7 @@ class _OnboardingState extends State<Onboarding> {
               },
             ),
             TextFormField(
+              controller: zonesController,
               decoration: const InputDecoration(
                 labelText: 'Zones (comma separated list)',
               ),
@@ -47,6 +82,7 @@ class _OnboardingState extends State<Onboarding> {
               },
             ),
             TextFormField(
+              controller: footholdsController,
               decoration: const InputDecoration(
                 labelText: 'Footholds (comma separated list)',
               ),
@@ -67,6 +103,16 @@ class _OnboardingState extends State<Onboarding> {
                         const SnackBar(content: Text('Processing Data')),
                       );
 
+                      bloc.add(
+                        CompassDataCreated(
+                          name: nameController.text,
+                          workingHours: int.parse(workingHoursController.text),
+                          zones: zonesController.text.split(','),
+                          footholds: footholdsController.text.split(','),
+                        ),
+                      );
+
+                      // TODO(ant): remove this artificial flag standing in for real auth
                       await SharedPreferencesAsync().setBool(
                         'has_completed_onboarding',
                         true,
@@ -75,8 +121,6 @@ class _OnboardingState extends State<Onboarding> {
                       if (context.mounted) {
                         context.go('/');
                       }
-
-                      // TODO(ant): store values in shared_prefs
                     }
                   },
                   label: const Text('Continue'),

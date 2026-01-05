@@ -8,8 +8,12 @@ environment:
 resolution: workspace
 
 dependencies:
+  compass_datasource: 
+    path: './packages/compass_datasource'
   dart_frog: ^1.1.0
   dart_frog_auth: ^1.2.2
+  pg_compass_datasource:
+    path: './packages/pg_compass_datasource'
   postgres: ^3.5.9
   shared:
     path: '../shared'
