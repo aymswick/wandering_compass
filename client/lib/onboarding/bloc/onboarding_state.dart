@@ -15,4 +15,4 @@ class OnboardingState {
       );
 }
 
-enum OnboardingStatus { intial, loading, complete }
+enum OnboardingStatus { intial, loading, error, complete }

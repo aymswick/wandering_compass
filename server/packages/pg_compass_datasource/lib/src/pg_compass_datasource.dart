@@ -36,19 +36,29 @@ class PgCompassDatasource implements CompassDatasource {
   late final Database _db;
 
   @override
-  Future<Schedule> create(Map<String, dynamic> json) async {
-    final insertResult = await _db.schedules.insertOne(
-      sb.ScheduleInsertRequest(
-        footholds: (json['footholds'] as List<dynamic>)
-            .map(
-              (e) => '$e',
-            )
-            .toList(),
-        workingHours: json['working_hours'] as int,
-      ),
-    );
+  Future<Schedule> create(Map<String, dynamic> map) async {
+    try {
+      logger.d('datasource create from: $map');
+      final schedule = Schedule.fromMap(map);
 
-    return Schedule(name: 'testName', id: insertResult);
+      final insertResult = await _db.schedules.insertOne(
+        sb.ScheduleInsertRequest(
+          name: schedule.name,
+          zones: schedule.zones,
+          footholds: (map['footholds'] as List<dynamic>)
+              .map(
+                (e) => '$e',
+              )
+              .toList(),
+          workingHours: map['workingHours'] as int,
+        ),
+      );
+
+      return schedule.copyWith(id: insertResult);
+    } catch (e) {
+      logger.e(e);
+      throw Exception('goddamn _db.schedules.insertOne failed');
+    }
   }
 
   @override
@@ -69,9 +79,11 @@ class PgCompassDatasource implements CompassDatasource {
     final schedules = readResult
         .map(
           (e) => Schedule(
-            name: '${e.id}',
+            name: e.name,
             id: e.id,
             workingHours: e.workingHours,
+            footholds: e.footholds,
+            // zones: e.zones,
           ),
         )
         .toList();

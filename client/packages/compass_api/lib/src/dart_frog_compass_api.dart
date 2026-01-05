@@ -21,25 +21,33 @@ class DartFrogCompassApi implements CompassApi {
     required List<String> zones,
     required List<String> footholds,
   }) async {
-    final schedule = await http.post(
-      Uri.parse(
-        'http://localhost:8080/schedules',
-      ),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(
-        <String, dynamic>{
-          name: name,
-          'working_hours': workingHours,
-          'footholds': footholds,
+    try {
+      final response = await http.post(
+        Uri.parse(
+          'http://localhost:8080/schedules',
+        ),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
         },
-      ),
-    );
+        body: jsonEncode(
+          <String, dynamic>{
+            'name': name,
+            'workingHours': workingHours,
+            'footholds': footholds,
+            'zones': zones,
+          },
+        ),
+      );
 
-    logger.d(schedule.body);
-
-    return Schedule.fromJson(schedule.body);
+      if (response.statusCode == 201) {
+        final parsedBody = jsonDecode(response.body) as Map<String, dynamic>;
+        return Schedule.fromMap(parsedBody);
+      } else {
+        throw Exception('Server failed to create the Schedule');
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override

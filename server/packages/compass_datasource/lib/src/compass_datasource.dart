@@ -3,7 +3,7 @@ import 'package:shared/shared.dart';
 /// Datasource contract for Schedule
 abstract class CompassDatasource {
   /// Create and return the newly created schedule.
-  Future<Schedule> create(Map<String, dynamic> json);
+  Future<Schedule> create(Map<String, dynamic> map);
 
   /// Delete the schedule with the provided [id] if one exists.
   Future<void> delete(String id);

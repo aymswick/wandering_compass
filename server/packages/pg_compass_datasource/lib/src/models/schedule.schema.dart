@@ -46,8 +46,8 @@ class _ScheduleRepository extends BaseRepository
     var values = QueryValues();
     var rows = await db.execute(
       Sql.named(
-        'INSERT INTO "schedules" ( "footholds", "working_hours" )\n'
-        'VALUES ${requests.map((r) => '( ${values.add(r.footholds)}:_text, ${values.add(r.workingHours)}:int8 )').join(', ')}\n'
+        'INSERT INTO "schedules" ( "footholds", "name", "working_hours", "zones" )\n'
+        'VALUES ${requests.map((r) => '( ${values.add(r.footholds)}:_text, ${values.add(r.name)}:text, ${values.add(r.workingHours)}:int8, ${values.add(r.zones)}:_text )').join(', ')}\n'
         'RETURNING "id"',
       ),
       parameters: values.values,
@@ -65,7 +65,11 @@ class _ScheduleRepository extends BaseRepository
 
     final updateRequests = [
       for (final r in requests)
-        if (r.footholds != null || r.workingHours != null) r,
+        if (r.footholds != null ||
+            r.name != null ||
+            r.workingHours != null ||
+            r.zones != null)
+          r,
     ];
 
     if (updateRequests.isNotEmpty) {
@@ -73,9 +77,9 @@ class _ScheduleRepository extends BaseRepository
       await db.execute(
         Sql.named(
           'UPDATE "schedules"\n'
-          'SET "footholds" = COALESCE(UPDATED."footholds", "schedules"."footholds"), "working_hours" = COALESCE(UPDATED."working_hours", "schedules"."working_hours")\n'
-          'FROM ( VALUES ${updateRequests.map((r) => '( ${values.add(r.footholds)}:_text::_text, ${values.add(r.id)}:int8::int8, ${values.add(r.workingHours)}:int8::int8 )').join(', ')} )\n'
-          'AS UPDATED("footholds", "id", "working_hours")\n'
+          'SET "footholds" = COALESCE(UPDATED."footholds", "schedules"."footholds"), "name" = COALESCE(UPDATED."name", "schedules"."name"), "working_hours" = COALESCE(UPDATED."working_hours", "schedules"."working_hours"), "zones" = COALESCE(UPDATED."zones", "schedules"."zones")\n'
+          'FROM ( VALUES ${updateRequests.map((r) => '( ${values.add(r.footholds)}:_text::_text, ${values.add(r.id)}:int8::int8, ${values.add(r.name)}:text::text, ${values.add(r.workingHours)}:int8::int8, ${values.add(r.zones)}:_text::_text )').join(', ')} )\n'
+          'AS UPDATED("footholds", "id", "name", "working_hours", "zones")\n'
           'WHERE "schedules"."id" = UPDATED."id"',
         ),
         parameters: values.values,
@@ -85,18 +89,33 @@ class _ScheduleRepository extends BaseRepository
 }
 
 class ScheduleInsertRequest {
-  ScheduleInsertRequest({required this.footholds, required this.workingHours});
+  ScheduleInsertRequest({
+    required this.footholds,
+    required this.name,
+    required this.workingHours,
+    this.zones,
+  });
 
   final List<String> footholds;
+  final String name;
   final int workingHours;
+  final List<String>? zones;
 }
 
 class ScheduleUpdateRequest {
-  ScheduleUpdateRequest({this.footholds, required this.id, this.workingHours});
+  ScheduleUpdateRequest({
+    this.footholds,
+    required this.id,
+    this.name,
+    this.workingHours,
+    this.zones,
+  });
 
   final List<String>? footholds;
   final int id;
+  final String? name;
   final int? workingHours;
+  final List<String>? zones;
 }
 
 class ScheduleViewQueryable extends KeyedViewQueryable<ScheduleView, int> {
@@ -118,7 +137,9 @@ class ScheduleViewQueryable extends KeyedViewQueryable<ScheduleView, int> {
   ScheduleView decode(TypedMap map) => ScheduleView(
     footholds: map.getListOpt('footholds') ?? const [],
     id: map.get('id'),
+    name: map.get('name'),
     workingHours: map.get('working_hours'),
+    zones: map.getListOpt('zones'),
   );
 }
 
@@ -126,10 +147,14 @@ class ScheduleView {
   ScheduleView({
     required this.footholds,
     required this.id,
+    required this.name,
     required this.workingHours,
+    this.zones,
   });
 
   final List<String> footholds;
   final int id;
+  final String name;
   final int workingHours;
+  final List<String>? zones;
 }

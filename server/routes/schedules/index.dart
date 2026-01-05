@@ -26,16 +26,24 @@ Future<Response> _get(RequestContext context) async {
 }
 
 Future<Response> _post(RequestContext context) async {
-  logger.d('schedules post');
-  final dataSource = context.read<CompassDatasource>();
-  final body = await context.request.json() as Map<String, dynamic>;
-  logger.d(body);
-  // final todo = Todo.fromJson(
-  //   await context.request.json() as Map<String, dynamic>,
-  // );
+  try {
+    logger.d('schedules post');
+    final dataSource = context.read<CompassDatasource>();
+    final body = await context.request.json() as Map<String, dynamic>;
+    logger.d(body);
 
-  return Response.json(
-    statusCode: HttpStatus.created,
-    body: await dataSource.create(body),
-  );
+    final insertedSchedule = await dataSource.create(body);
+
+    return Response.json(
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+
+      statusCode: HttpStatus.created,
+      body: insertedSchedule.toMap(),
+    );
+  } catch (e) {
+    logger.e('Failed post: $e');
+    return Response(statusCode: 500, body: e.toString());
+  }
 }

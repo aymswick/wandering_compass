@@ -14,7 +14,7 @@ void main() {
 
 class _TestScheduleDatasource implements CompassDatasource {
   @override
-  Future<Schedule> create(Schedule schedule) => throw UnimplementedError();
+  Future<Schedule> create(Schedule map) => throw UnimplementedError();
 
   @override
   Future<void> delete(String id) => throw UnimplementedError();

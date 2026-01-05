@@ -38,6 +38,13 @@ class ScheduleMapper extends ClassMapperBase<Schedule> {
     opt: true,
     def: const [],
   );
+  static List<String> _$zones(Schedule v) => v.zones;
+  static const Field<Schedule, List<String>> _f$zones = Field(
+    'zones',
+    _$zones,
+    opt: true,
+    def: const [],
+  );
 
   @override
   final MappableFields<Schedule> fields = const {
@@ -45,6 +52,7 @@ class ScheduleMapper extends ClassMapperBase<Schedule> {
     #name: _f$name,
     #workingHours: _f$workingHours,
     #footholds: _f$footholds,
+    #zones: _f$zones,
   };
 
   static Schedule _instantiate(DecodingData data) {
@@ -53,6 +61,7 @@ class ScheduleMapper extends ClassMapperBase<Schedule> {
       name: data.dec(_f$name),
       workingHours: data.dec(_f$workingHours),
       footholds: data.dec(_f$footholds),
+      zones: data.dec(_f$zones),
     );
   }
 
@@ -114,7 +123,14 @@ extension ScheduleValueCopy<$R, $Out> on ObjectCopyWith<$R, Schedule, $Out> {
 abstract class ScheduleCopyWith<$R, $In extends Schedule, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get footholds;
-  $R call({int? id, String? name, int? workingHours, List<String>? footholds});
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get zones;
+  $R call({
+    int? id,
+    String? name,
+    int? workingHours,
+    List<String>? footholds,
+    List<String>? zones,
+  });
   ScheduleCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -134,17 +150,26 @@ class _ScheduleCopyWithImpl<$R, $Out>
         (v) => call(footholds: v),
       );
   @override
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get zones =>
+      ListCopyWith(
+        $value.zones,
+        (v, t) => ObjectCopyWith(v, $identity, t),
+        (v) => call(zones: v),
+      );
+  @override
   $R call({
     Object? id = $none,
     String? name,
     Object? workingHours = $none,
     List<String>? footholds,
+    List<String>? zones,
   }) => $apply(
     FieldCopyWithData({
       if (id != $none) #id: id,
       if (name != null) #name: name,
       if (workingHours != $none) #workingHours: workingHours,
       if (footholds != null) #footholds: footholds,
+      if (zones != null) #zones: zones,
     }),
   );
   @override
@@ -153,6 +178,7 @@ class _ScheduleCopyWithImpl<$R, $Out>
     name: data.get(#name, or: $value.name),
     workingHours: data.get(#workingHours, or: $value.workingHours),
     footholds: data.get(#footholds, or: $value.footholds),
+    zones: data.get(#zones, or: $value.zones),
   );
 
   @override

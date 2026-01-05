@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 import 'helper.dart';
 
 void main() {
-  group('ScheduleRepository', () {
+  group('CompassRepository', () {
     late final CompassApi mockCompassApi;
     setUp(() {
       mockCompassApi = MockCompassApi();
