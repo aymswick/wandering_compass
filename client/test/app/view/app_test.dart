@@ -1,8 +1,8 @@
 // Ignore for testing purposes
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wandering_compass_client/app/app.dart';
-import 'package:wandering_compass_client/today/counter.dart';
+import 'package:wanderers_compass/app/app.dart';
+import 'package:wanderers_compass/today/counter.dart';
 
 void main() {
   group('App', () {

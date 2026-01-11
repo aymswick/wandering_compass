@@ -14,18 +14,25 @@ class CompassRepository {
   /// Creates a schedule via [api]
   Future<Schedule> createSchedule({
     required String name,
-    required int workingHours,
+    required DateTime dayStart,
+    required DateTime dayEnd,
     required List<String> zones,
-    required List<String> footholds,
+    List<String>? footholds,
   }) async {
-    final schedule = await api.createSchedule(
-      name: name,
-      workingHours: workingHours,
-      zones: zones,
-      footholds: footholds,
-    );
+    try {
+      final schedule = await api.createSchedule(
+        name: name,
+        dayStart: dayStart,
+        dayEnd: dayEnd,
+        zones: zones,
+        footholds: footholds ?? [],
+      );
 
-    return schedule;
+      return schedule;
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
   }
 
   /// Get the full schedule for a user
@@ -36,6 +43,6 @@ class CompassRepository {
   /// Get the working hours for a user
   Future<int> getWorkingHours() async {
     final schedule = await api.getSchedule();
-    return schedule.workingHours!;
+    return schedule.dayEnd.difference(schedule.dayStart).inHours;
   }
 }

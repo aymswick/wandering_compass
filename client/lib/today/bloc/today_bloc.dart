@@ -30,8 +30,10 @@ class TodayBloc extends Bloc<TodayEvent, TodayState> {
     Emitter<TodayState> emit,
   ) async {
     final now = DateTime.now();
+    final schedule = state.schedule!;
 
-    final workingMinutes = state.schedule!.workingHours! * 60;
+    final workingMinutes =
+        schedule.dayEnd.difference(schedule.dayStart).inHours * 60;
 
     // Convert current time to a minute count starting from 7:00 AM
     var elapsedMinutes = 0;

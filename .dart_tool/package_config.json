@@ -33,7 +33,7 @@
     },
     {
       "name": "bloc",
-      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/bloc-9.1.0",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/bloc-9.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -123,7 +123,7 @@
     },
     {
       "name": "code_builder",
-      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/code_builder-4.11.0",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/code_builder-4.11.1",
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },
@@ -231,7 +231,7 @@
     },
     {
       "name": "ffi",
-      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/ffi-2.1.4",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/ffi-2.1.5",
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },
@@ -494,12 +494,6 @@
       "languageVersion": "3.8"
     },
     {
-      "name": "pg_compass_datasource",
-      "rootUri": "../server/packages/pg_compass_datasource",
-      "packageUri": "lib/",
-      "languageVersion": "3.9"
-    },
-    {
       "name": "platform",
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/platform-3.1.6",
       "packageUri": "lib/",
@@ -524,6 +518,12 @@
       "languageVersion": "3.9"
     },
     {
+      "name": "postgres_compass_datasource",
+      "rootUri": "../server/packages/postgres_compass_datasource",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
+    },
+    {
       "name": "provider",
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/provider-6.1.5+1",
       "packageUri": "lib/",
@@ -540,6 +540,12 @@
       "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/pubspec_parse-1.5.0",
       "packageUri": "lib/",
       "languageVersion": "3.6"
+    },
+    {
+      "name": "recase",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/recase-4.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "shared_preferences",
@@ -735,7 +741,7 @@
     },
     {
       "name": "watcher",
-      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/watcher-1.2.0",
+      "rootUri": "file:///Users/aymswick/.pub-cache/hosted/pub.dev/watcher-1.2.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -794,7 +800,7 @@
       "languageVersion": "3.9"
     },
     {
-      "name": "wandering_compass_client",
+      "name": "wanderers_compass",
       "rootUri": "../client",
       "packageUri": "lib/",
       "languageVersion": "3.9"
@@ -813,8 +819,8 @@
     }
   ],
   "generator": "pub",
-  "generatorVersion": "3.10.4",
+  "generatorVersion": "3.10.7",
   "flutterRoot": "file:///Users/aymswick/development/flutter",
-  "flutterVersion": "3.38.5",
+  "flutterVersion": "3.38.6",
   "pubCache": "file:///Users/aymswick/.pub-cache"
 }

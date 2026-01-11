@@ -2,10 +2,26 @@
     "configurations": [
         {
             "args": [
+                "--flavor",
+                "development",
                 "--target",
-                "lib/main_development.dart"
+                "lib/main_development.dart",
+                "--dart-define",
+                "COMPASS_API_BASE_URL=192.168.1.65:8080",
             ],
-            "name": "Launch development",
+            "name": "🤖 Android development",
+            "program": "client/lib/main_development.dart",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "args": [
+                "--target",
+                "lib/main_development.dart",
+                "--dart-define",
+                "COMPASS_API_BASE_URL=localhost:8080",
+            ],
+            "name": "💻 macOS development",
             "program": "client/lib/main_development.dart",
             "request": "launch",
             "type": "dart"

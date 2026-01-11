@@ -6,3 +6,5 @@ workspace:
   - client
   - server
   - shared
+dependencies:
+  recase: ^4.1.0

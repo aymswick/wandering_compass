@@ -1,4 +1,4 @@
-name: pg_compass_datasource
+name: postgres_compass_datasource
 description: Postgres implementation of schedule data source
 version: 0.1.0+1
 publish_to: none

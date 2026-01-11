@@ -25,12 +25,13 @@ class ScheduleMapper extends ClassMapperBase<Schedule> {
   static const Field<Schedule, int> _f$id = Field('id', _$id, opt: true);
   static String _$name(Schedule v) => v.name;
   static const Field<Schedule, String> _f$name = Field('name', _$name);
-  static int? _$workingHours(Schedule v) => v.workingHours;
-  static const Field<Schedule, int> _f$workingHours = Field(
-    'workingHours',
-    _$workingHours,
-    opt: true,
+  static DateTime _$dayStart(Schedule v) => v.dayStart;
+  static const Field<Schedule, DateTime> _f$dayStart = Field(
+    'dayStart',
+    _$dayStart,
   );
+  static DateTime _$dayEnd(Schedule v) => v.dayEnd;
+  static const Field<Schedule, DateTime> _f$dayEnd = Field('dayEnd', _$dayEnd);
   static List<String> _$footholds(Schedule v) => v.footholds;
   static const Field<Schedule, List<String>> _f$footholds = Field(
     'footholds',
@@ -50,7 +51,8 @@ class ScheduleMapper extends ClassMapperBase<Schedule> {
   final MappableFields<Schedule> fields = const {
     #id: _f$id,
     #name: _f$name,
-    #workingHours: _f$workingHours,
+    #dayStart: _f$dayStart,
+    #dayEnd: _f$dayEnd,
     #footholds: _f$footholds,
     #zones: _f$zones,
   };
@@ -59,7 +61,8 @@ class ScheduleMapper extends ClassMapperBase<Schedule> {
     return Schedule(
       id: data.dec(_f$id),
       name: data.dec(_f$name),
-      workingHours: data.dec(_f$workingHours),
+      dayStart: data.dec(_f$dayStart),
+      dayEnd: data.dec(_f$dayEnd),
       footholds: data.dec(_f$footholds),
       zones: data.dec(_f$zones),
     );
@@ -127,7 +130,8 @@ abstract class ScheduleCopyWith<$R, $In extends Schedule, $Out>
   $R call({
     int? id,
     String? name,
-    int? workingHours,
+    DateTime? dayStart,
+    DateTime? dayEnd,
     List<String>? footholds,
     List<String>? zones,
   });
@@ -160,14 +164,16 @@ class _ScheduleCopyWithImpl<$R, $Out>
   $R call({
     Object? id = $none,
     String? name,
-    Object? workingHours = $none,
+    DateTime? dayStart,
+    DateTime? dayEnd,
     List<String>? footholds,
     List<String>? zones,
   }) => $apply(
     FieldCopyWithData({
       if (id != $none) #id: id,
       if (name != null) #name: name,
-      if (workingHours != $none) #workingHours: workingHours,
+      if (dayStart != null) #dayStart: dayStart,
+      if (dayEnd != null) #dayEnd: dayEnd,
       if (footholds != null) #footholds: footholds,
       if (zones != null) #zones: zones,
     }),
@@ -176,7 +182,8 @@ class _ScheduleCopyWithImpl<$R, $Out>
   Schedule $make(CopyWithData data) => Schedule(
     id: data.get(#id, or: $value.id),
     name: data.get(#name, or: $value.name),
-    workingHours: data.get(#workingHours, or: $value.workingHours),
+    dayStart: data.get(#dayStart, or: $value.dayStart),
+    dayEnd: data.get(#dayEnd, or: $value.dayEnd),
     footholds: data.get(#footholds, or: $value.footholds),
     zones: data.get(#zones, or: $value.zones),
   );

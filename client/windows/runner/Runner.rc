@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example.verygoodcore.wandering-compass" "\0"
+            VALUE "CompanyName", "com.endearingengineering.wanderers_compass" "\0"
             VALUE "FileDescription", "wandering_compass" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "wandering_compass" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2025 com.example.verygoodcore.wandering-compass. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2025 com.endearingengineering.wanderers_compass. All rights reserved." "\0"
             VALUE "OriginalFilename", "wandering_compass.exe" "\0"
             VALUE "ProductName", "Wandering Compass" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

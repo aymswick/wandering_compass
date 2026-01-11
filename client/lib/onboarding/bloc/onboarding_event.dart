@@ -3,15 +3,15 @@ part of 'onboarding_bloc.dart';
 class CompassDataCreated extends OnboardingEvent {
   CompassDataCreated({
     required this.name,
-    required this.workingHours,
+    required this.dayStart,
+    required this.dayEnd,
     required this.zones,
-    required this.footholds,
   });
 
   final String name;
-  final int workingHours;
+  final DateTime dayStart;
+  final DateTime dayEnd;
   final List<String> zones;
-  final List<String> footholds;
 }
 
 @immutable

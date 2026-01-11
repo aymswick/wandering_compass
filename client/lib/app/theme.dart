@@ -37,6 +37,13 @@ class AppTheme {
       foregroundColor: terminalGreen,
       elevation: 0,
     ),
+    chipTheme: const ChipThemeData(
+      side: BorderSide(
+        color: terminalGreen,
+      ),
+      checkmarkColor: Colors.black,
+      iconTheme: IconThemeData(color: terminalGreen),
+    ),
     inputDecorationTheme: InputDecorationTheme(
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: terminalGreen.withValues(alpha: 0.5)),

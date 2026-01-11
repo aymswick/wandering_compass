@@ -46,8 +46,8 @@ class _ScheduleRepository extends BaseRepository
     var values = QueryValues();
     var rows = await db.execute(
       Sql.named(
-        'INSERT INTO "schedules" ( "footholds", "name", "working_hours", "zones" )\n'
-        'VALUES ${requests.map((r) => '( ${values.add(r.footholds)}:_text, ${values.add(r.name)}:text, ${values.add(r.workingHours)}:int8, ${values.add(r.zones)}:_text )').join(', ')}\n'
+        'INSERT INTO "schedules" ( "day_end", "day_start", "footholds", "name", "zones" )\n'
+        'VALUES ${requests.map((r) => '( ${values.add(r.dayEnd)}:timestamp, ${values.add(r.dayStart)}:timestamp, ${values.add(r.footholds)}:_text, ${values.add(r.name)}:text, ${values.add(r.zones)}:_text )').join(', ')}\n'
         'RETURNING "id"',
       ),
       parameters: values.values,
@@ -65,9 +65,10 @@ class _ScheduleRepository extends BaseRepository
 
     final updateRequests = [
       for (final r in requests)
-        if (r.footholds != null ||
+        if (r.dayEnd != null ||
+            r.dayStart != null ||
+            r.footholds != null ||
             r.name != null ||
-            r.workingHours != null ||
             r.zones != null)
           r,
     ];
@@ -77,9 +78,9 @@ class _ScheduleRepository extends BaseRepository
       await db.execute(
         Sql.named(
           'UPDATE "schedules"\n'
-          'SET "footholds" = COALESCE(UPDATED."footholds", "schedules"."footholds"), "name" = COALESCE(UPDATED."name", "schedules"."name"), "working_hours" = COALESCE(UPDATED."working_hours", "schedules"."working_hours"), "zones" = COALESCE(UPDATED."zones", "schedules"."zones")\n'
-          'FROM ( VALUES ${updateRequests.map((r) => '( ${values.add(r.footholds)}:_text::_text, ${values.add(r.id)}:int8::int8, ${values.add(r.name)}:text::text, ${values.add(r.workingHours)}:int8::int8, ${values.add(r.zones)}:_text::_text )').join(', ')} )\n'
-          'AS UPDATED("footholds", "id", "name", "working_hours", "zones")\n'
+          'SET "day_end" = COALESCE(UPDATED."day_end", "schedules"."day_end"), "day_start" = COALESCE(UPDATED."day_start", "schedules"."day_start"), "footholds" = COALESCE(UPDATED."footholds", "schedules"."footholds"), "name" = COALESCE(UPDATED."name", "schedules"."name"), "zones" = COALESCE(UPDATED."zones", "schedules"."zones")\n'
+          'FROM ( VALUES ${updateRequests.map((r) => '( ${values.add(r.dayEnd)}:timestamp::timestamp, ${values.add(r.dayStart)}:timestamp::timestamp, ${values.add(r.footholds)}:_text::_text, ${values.add(r.id)}:int8::int8, ${values.add(r.name)}:text::text, ${values.add(r.zones)}:_text::_text )').join(', ')} )\n'
+          'AS UPDATED("day_end", "day_start", "footholds", "id", "name", "zones")\n'
           'WHERE "schedules"."id" = UPDATED."id"',
         ),
         parameters: values.values,
@@ -90,31 +91,35 @@ class _ScheduleRepository extends BaseRepository
 
 class ScheduleInsertRequest {
   ScheduleInsertRequest({
+    required this.dayEnd,
+    required this.dayStart,
     required this.footholds,
     required this.name,
-    required this.workingHours,
     this.zones,
   });
 
+  final DateTime dayEnd;
+  final DateTime dayStart;
   final List<String> footholds;
   final String name;
-  final int workingHours;
   final List<String>? zones;
 }
 
 class ScheduleUpdateRequest {
   ScheduleUpdateRequest({
+    this.dayEnd,
+    this.dayStart,
     this.footholds,
     required this.id,
     this.name,
-    this.workingHours,
     this.zones,
   });
 
+  final DateTime? dayEnd;
+  final DateTime? dayStart;
   final List<String>? footholds;
   final int id;
   final String? name;
-  final int? workingHours;
   final List<String>? zones;
 }
 
@@ -135,26 +140,29 @@ class ScheduleViewQueryable extends KeyedViewQueryable<ScheduleView, int> {
 
   @override
   ScheduleView decode(TypedMap map) => ScheduleView(
+    dayEnd: map.get('day_end'),
+    dayStart: map.get('day_start'),
     footholds: map.getListOpt('footholds') ?? const [],
     id: map.get('id'),
     name: map.get('name'),
-    workingHours: map.get('working_hours'),
     zones: map.getListOpt('zones'),
   );
 }
 
 class ScheduleView {
   ScheduleView({
+    required this.dayEnd,
+    required this.dayStart,
     required this.footholds,
     required this.id,
     required this.name,
-    required this.workingHours,
     this.zones,
   });
 
+  final DateTime dayEnd;
+  final DateTime dayStart;
   final List<String> footholds;
   final int id;
   final String name;
-  final int workingHours;
   final List<String>? zones;
 }

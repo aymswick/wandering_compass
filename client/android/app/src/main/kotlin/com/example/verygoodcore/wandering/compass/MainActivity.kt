@@ -1,4 +1,4 @@
-package com.example.verygoodcore.wandering_compass
+package com.endearingengineering.wanderers_compass
 
 import io.flutter.embedding.android.FlutterActivity
 

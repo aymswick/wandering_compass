@@ -1,5 +1,5 @@
-import 'package:wandering_compass_client/app/app.dart';
-import 'package:wandering_compass_client/bootstrap.dart';
+import 'package:wanderers_compass/app/app.dart';
+import 'package:wanderers_compass/bootstrap.dart';
 
 Future<void> main() async {
   await bootstrap(

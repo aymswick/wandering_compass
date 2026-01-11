@@ -8,23 +8,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Retrieves Compass data from the Dart Frog backend for the app.
 class DartFrogCompassApi implements CompassApi {
   ///
-  DartFrogCompassApi() : _sharedPrefs = SharedPreferencesAsync();
+  DartFrogCompassApi()
+    : _sharedPrefs = SharedPreferencesAsync(),
+      _baseUrl = const String.fromEnvironment('COMPASS_API_BASE_URL');
 
   final SharedPreferencesAsync _sharedPrefs;
+  final String _baseUrl;
 
   /// Creates a Schedule on the backend, returns [Schedule] with
-  /// server-created [id]
+  /// server-created id
   @override
   Future<Schedule> createSchedule({
     required String name,
-    required int workingHours,
+    required DateTime dayStart,
+    required DateTime dayEnd,
     required List<String> zones,
     required List<String> footholds,
   }) async {
     try {
       final response = await http.post(
         Uri.parse(
-          'http://localhost:8080/schedules',
+          'http://$_baseUrl/schedules',
         ),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -32,7 +36,8 @@ class DartFrogCompassApi implements CompassApi {
         body: jsonEncode(
           <String, dynamic>{
             'name': name,
-            'workingHours': workingHours,
+            'dayStart': dayStart.serialize(),
+            'dayEnd': dayEnd.serialize(),
             'footholds': footholds,
             'zones': zones,
           },
@@ -53,8 +58,10 @@ class DartFrogCompassApi implements CompassApi {
   @override
   Future<Schedule> getSchedule() async {
     final data =
-        await http.get(Uri.parse('localhost:8080/schedules'))
+        await http.get(Uri.parse('http://$_baseUrl/schedules'))
             as Map<String, dynamic>;
+
+    logger.d('Got schedules: $data');
 
     // probably want getSchedule(id) or getScheduleForUser
 

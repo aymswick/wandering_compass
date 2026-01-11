@@ -12,9 +12,9 @@ dependencies:
     path: './packages/compass_datasource'
   dart_frog: ^1.1.0
   dart_frog_auth: ^1.2.2
-  pg_compass_datasource:
-    path: './packages/pg_compass_datasource'
   postgres: ^3.5.9
+  postgres_compass_datasource:
+    path: './packages/postgres_compass_datasource'
   shared:
     path: '../shared'
   stormberry: ^0.18.0
