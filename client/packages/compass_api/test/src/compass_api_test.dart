@@ -13,6 +13,18 @@ void main() {
 
 class _TestCompassApi implements CompassApi {
   @override
+  Future<Schedule> createSchedule({
+    required String name,
+    required DateTime dayStart,
+    required DateTime dayEnd,
+    required List<String> zones,
+    required List<String> footholds,
+  }) {
+    // TODO(ant): implement createSchedule
+    throw UnimplementedError();
+  }
+
+  @override
   Future<Schedule> getSchedule() {
     throw UnimplementedError();
   }

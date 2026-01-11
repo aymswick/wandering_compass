@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:compass_datasource/compass_datasource.dart';
-import 'package:pg_compass_datasource/src/models/schedule.dart' as sb;
+import 'package:postgres_compass_datasource/src/models/schedule.dart' as sb;
 import 'package:shared/shared.dart';
 import 'package:stormberry/stormberry.dart';
 
@@ -50,7 +50,12 @@ class PgCompassDatasource implements CompassDatasource {
                 (e) => '$e',
               )
               .toList(),
-          workingHours: map['workingHours'] as int,
+          dayStart: DateTime.parse(
+            map['dayStart'] as String,
+          ),
+          dayEnd: DateTime.parse(
+            map['dayEnd'] as String,
+          ),
         ),
       );
 
@@ -81,9 +86,9 @@ class PgCompassDatasource implements CompassDatasource {
           (e) => Schedule(
             name: e.name,
             id: e.id,
-            workingHours: e.workingHours,
+            dayStart: e.dayStart,
+            dayEnd: e.dayEnd,
             footholds: e.footholds,
-            // zones: e.zones,
           ),
         )
         .toList();

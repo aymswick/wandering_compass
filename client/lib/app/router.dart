@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wandering_compass_client/onboarding/view/onboarding.dart';
-import 'package:wandering_compass_client/today/view/today_pager.dart';
+import 'package:wanderers_compass/onboarding/view/onboarding.dart';
+import 'package:wanderers_compass/today/view/today_pager.dart';
 
 final appRouter = GoRouter(
   redirect: (context, state) async {

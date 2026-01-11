@@ -3,17 +3,19 @@
     "_",
     "server",
     "shared",
-    "wandering_compass_client"
+    "wanderers_compass"
   ],
   "packages": [
     {
       "name": "_",
       "version": "0.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "recase"
+      ],
       "devDependencies": []
     },
     {
-      "name": "wandering_compass_client",
+      "name": "wanderers_compass",
       "version": "1.0.0+1",
       "dependencies": [
         "bloc",
@@ -47,8 +49,8 @@
         "compass_datasource",
         "dart_frog",
         "dart_frog_auth",
-        "pg_compass_datasource",
         "postgres",
+        "postgres_compass_datasource",
         "shared",
         "stormberry"
       ],
@@ -69,6 +71,11 @@
         "dart_mappable",
         "dart_mappable_builder"
       ]
+    },
+    {
+      "name": "recase",
+      "version": "4.1.0",
+      "dependencies": []
     },
     {
       "name": "dart_mappable_builder",
@@ -203,6 +210,16 @@
       ]
     },
     {
+      "name": "postgres_compass_datasource",
+      "version": "0.1.0+1",
+      "dependencies": [
+        "compass_datasource",
+        "postgres",
+        "shared",
+        "stormberry"
+      ]
+    },
+    {
       "name": "postgres",
       "version": "3.5.9",
       "dependencies": [
@@ -215,16 +232,6 @@
         "pool",
         "stack_trace",
         "stream_channel"
-      ]
-    },
-    {
-      "name": "pg_compass_datasource",
-      "version": "0.1.0+1",
-      "dependencies": [
-        "compass_datasource",
-        "postgres",
-        "shared",
-        "stormberry"
       ]
     },
     {
@@ -406,7 +413,7 @@
     },
     {
       "name": "bloc",
-      "version": "9.1.0",
+      "version": "9.2.0",
       "dependencies": [
         "meta"
       ]
@@ -528,7 +535,7 @@
     },
     {
       "name": "watcher",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "dependencies": [
         "async",
         "path"
@@ -638,7 +645,7 @@
     },
     {
       "name": "code_builder",
-      "version": "4.11.0",
+      "version": "4.11.1",
       "dependencies": [
         "built_collection",
         "built_value",
@@ -1087,7 +1094,7 @@
     },
     {
       "name": "ffi",
-      "version": "2.1.4",
+      "version": "2.1.5",
       "dependencies": []
     },
     {

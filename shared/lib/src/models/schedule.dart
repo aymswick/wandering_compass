@@ -11,7 +11,9 @@ class Schedule with ScheduleMappable {
 
   final String name;
 
-  final int? workingHours;
+  final DateTime dayStart;
+
+  final DateTime dayEnd;
 
   final List<String> zones;
 
@@ -21,7 +23,8 @@ class Schedule with ScheduleMappable {
   const Schedule({
     this.id,
     required this.name,
-    this.workingHours,
+    required this.dayStart,
+    required this.dayEnd,
     this.footholds = const [],
     this.zones = const [],
   });

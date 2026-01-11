@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wandering_compass_client/today/view/clock/clock_painter.dart';
+import 'package:wanderers_compass/today/view/clock/clock_painter.dart';
 
 class CircularCountdownClock extends StatelessWidget {
   const CircularCountdownClock({

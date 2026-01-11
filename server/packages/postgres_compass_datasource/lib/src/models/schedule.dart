@@ -6,14 +6,16 @@ part 'schedule.schema.dart';
 
 @Model()
 abstract class Schedule {
+  DateTime get dayEnd;
+  DateTime get dayStart;
+
   List<String> get footholds;
+
   @PrimaryKey()
   @AutoIncrement()
   int get id;
 
   String get name;
-
-  int get workingHours;
 
   List<String>? get zones;
 }

@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wandering_compass_client/l10n/l10n.dart';
-import 'package:wandering_compass_client/today/bloc/today_bloc.dart';
-import 'package:wandering_compass_client/today/view/clock/circular_countdown_clock.dart';
-import 'package:wandering_compass_client/today/view/focus_items.dart'
-    show FocusItems;
+import 'package:wanderers_compass/l10n/l10n.dart';
+import 'package:wanderers_compass/today/bloc/today_bloc.dart';
+import 'package:wanderers_compass/today/view/clock/circular_countdown_clock.dart';
+import 'package:wanderers_compass/today/view/focus_items.dart' show FocusItems;
 
 class TodayPage extends StatelessWidget {
   const TodayPage({super.key});

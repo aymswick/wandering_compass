@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:compass_datasource/compass_datasource.dart';
 import 'package:dart_frog/dart_frog.dart';
-import 'package:pg_compass_datasource/pg_compass_datasource.dart';
+import 'package:postgres_compass_datasource/postgres_compass_datasource.dart';
 import 'package:shared/shared.dart';
 
 Future<Response> onRequest(RequestContext context) async {
@@ -38,12 +38,16 @@ Future<Response> _post(RequestContext context) async {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-
       statusCode: HttpStatus.created,
-      body: insertedSchedule.toMap(),
+      body: Success(insertedSchedule),
     );
   } catch (e) {
     logger.e('Failed post: $e');
-    return Response(statusCode: 500, body: e.toString());
+    return Response(
+      statusCode: 500,
+      body: Failure<String, Exception>(
+        ObjectCreateException('schedule'),
+      ).toJson(),
+    );
   }
 }
