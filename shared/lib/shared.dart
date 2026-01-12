@@ -1,3 +1,8 @@
+@MappableLib()
+library shared;
+
+import 'package:dart_mappable/dart_mappable.dart';
+
 export 'src/config.dart';
 export 'src/exceptions.dart';
 export 'src/extensions.dart';

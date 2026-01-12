@@ -46,8 +46,8 @@ class _ScheduleRepository extends BaseRepository
     var values = QueryValues();
     var rows = await db.execute(
       Sql.named(
-        'INSERT INTO "schedules" ( "day_end", "day_start", "footholds", "name", "zones" )\n'
-        'VALUES ${requests.map((r) => '( ${values.add(r.dayEnd)}:timestamp, ${values.add(r.dayStart)}:timestamp, ${values.add(r.footholds)}:_text, ${values.add(r.name)}:text, ${values.add(r.zones)}:_text )').join(', ')}\n'
+        'INSERT INTO "schedules" ( "day_end", "day_start", "footholds", "name" )\n'
+        'VALUES ${requests.map((r) => '( ${values.add(r.dayEnd)}:timestamp, ${values.add(r.dayStart)}:timestamp, ${values.add(r.footholds)}:_text, ${values.add(r.name)}:text )').join(', ')}\n'
         'RETURNING "id"',
       ),
       parameters: values.values,
@@ -68,8 +68,7 @@ class _ScheduleRepository extends BaseRepository
         if (r.dayEnd != null ||
             r.dayStart != null ||
             r.footholds != null ||
-            r.name != null ||
-            r.zones != null)
+            r.name != null)
           r,
     ];
 
@@ -78,9 +77,9 @@ class _ScheduleRepository extends BaseRepository
       await db.execute(
         Sql.named(
           'UPDATE "schedules"\n'
-          'SET "day_end" = COALESCE(UPDATED."day_end", "schedules"."day_end"), "day_start" = COALESCE(UPDATED."day_start", "schedules"."day_start"), "footholds" = COALESCE(UPDATED."footholds", "schedules"."footholds"), "name" = COALESCE(UPDATED."name", "schedules"."name"), "zones" = COALESCE(UPDATED."zones", "schedules"."zones")\n'
-          'FROM ( VALUES ${updateRequests.map((r) => '( ${values.add(r.dayEnd)}:timestamp::timestamp, ${values.add(r.dayStart)}:timestamp::timestamp, ${values.add(r.footholds)}:_text::_text, ${values.add(r.id)}:int8::int8, ${values.add(r.name)}:text::text, ${values.add(r.zones)}:_text::_text )').join(', ')} )\n'
-          'AS UPDATED("day_end", "day_start", "footholds", "id", "name", "zones")\n'
+          'SET "day_end" = COALESCE(UPDATED."day_end", "schedules"."day_end"), "day_start" = COALESCE(UPDATED."day_start", "schedules"."day_start"), "footholds" = COALESCE(UPDATED."footholds", "schedules"."footholds"), "name" = COALESCE(UPDATED."name", "schedules"."name")\n'
+          'FROM ( VALUES ${updateRequests.map((r) => '( ${values.add(r.dayEnd)}:timestamp::timestamp, ${values.add(r.dayStart)}:timestamp::timestamp, ${values.add(r.footholds)}:_text::_text, ${values.add(r.id)}:int8::int8, ${values.add(r.name)}:text::text )').join(', ')} )\n'
+          'AS UPDATED("day_end", "day_start", "footholds", "id", "name")\n'
           'WHERE "schedules"."id" = UPDATED."id"',
         ),
         parameters: values.values,
@@ -95,14 +94,12 @@ class ScheduleInsertRequest {
     required this.dayStart,
     required this.footholds,
     required this.name,
-    this.zones,
   });
 
   final DateTime dayEnd;
   final DateTime dayStart;
   final List<String> footholds;
   final String name;
-  final List<String>? zones;
 }
 
 class ScheduleUpdateRequest {
@@ -112,7 +109,6 @@ class ScheduleUpdateRequest {
     this.footholds,
     required this.id,
     this.name,
-    this.zones,
   });
 
   final DateTime? dayEnd;
@@ -120,7 +116,6 @@ class ScheduleUpdateRequest {
   final List<String>? footholds;
   final int id;
   final String? name;
-  final List<String>? zones;
 }
 
 class ScheduleViewQueryable extends KeyedViewQueryable<ScheduleView, int> {
@@ -132,8 +127,15 @@ class ScheduleViewQueryable extends KeyedViewQueryable<ScheduleView, int> {
 
   @override
   String get query =>
-      'SELECT "schedules".*'
-      'FROM "schedules"';
+      'SELECT "schedules".*, "zones"."data" as "zones"'
+      'FROM "schedules"'
+      'LEFT JOIN ('
+      '  SELECT "zones"."schedule_id",'
+      '    to_jsonb(array_agg("zones".*)) as data'
+      '  FROM (${ZoneViewQueryable().query}) "zones"'
+      '  GROUP BY "zones"."schedule_id"'
+      ') "zones"'
+      'ON "schedules"."id" = "zones"."schedule_id"';
 
   @override
   String get tableAlias => 'schedules';
@@ -145,7 +147,7 @@ class ScheduleViewQueryable extends KeyedViewQueryable<ScheduleView, int> {
     footholds: map.getListOpt('footholds') ?? const [],
     id: map.get('id'),
     name: map.get('name'),
-    zones: map.getListOpt('zones'),
+    zones: map.getListOpt('zones', ZoneViewQueryable().decoder),
   );
 }
 
@@ -164,5 +166,5 @@ class ScheduleView {
   final List<String> footholds;
   final int id;
   final String name;
-  final List<String>? zones;
+  final List<ZoneView>? zones;
 }

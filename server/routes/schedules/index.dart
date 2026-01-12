@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:compass_datasource/compass_datasource.dart';
@@ -29,10 +30,15 @@ Future<Response> _post(RequestContext context) async {
   try {
     logger.d('schedules post');
     final dataSource = context.read<CompassDatasource>();
-    final body = await context.request.json() as Map<String, dynamic>;
+    final body = await context.request.json();
     logger.d(body);
+    logger.d('body runtimetype: ${body.runtimeType}');
 
-    final insertedSchedule = await dataSource.create(body);
+    // TODO(ant): FIX BUG json has \
+
+    final insertedSchedule = await dataSource.create(
+      jsonDecode(body.toString()) as Map<String, dynamic>,
+    );
 
     return Response.json(
       headers: <String, String>{

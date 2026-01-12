@@ -1,4 +1,5 @@
 import "package:dart_mappable/dart_mappable.dart";
+import "package:shared/shared.dart";
 
 part 'schedule.mapper.dart';
 
@@ -15,7 +16,7 @@ class Schedule with ScheduleMappable {
 
   final DateTime dayEnd;
 
-  final List<String> zones;
+  final List<Zone> zones;
 
   final List<String>
   footholds; // TODO(ant): use Foothold class instead of String

@@ -2,9 +2,12 @@ import 'package:compass_repository/compass_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared/shared.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wanderers_compass/l10n/l10n.dart';
 import 'package:wanderers_compass/onboarding/bloc/onboarding_bloc.dart';
 import 'package:wanderers_compass/onboarding/view/time_suggestion_chips.dart';
+import 'package:wanderers_compass/onboarding/view/zones_list_view.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -33,13 +36,13 @@ class _OnboardingViewState extends State<OnboardingView> {
   late TimeOfDay dayStartTime;
   late TimeOfDay dayEndTime;
   TextEditingController zonesController = TextEditingController();
-  TextEditingController footholdsController = TextEditingController();
   final DateTime now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
-    // final theme = Theme.of(context);
+    final theme = Theme.of(context);
     final bloc = context.read<OnboardingBloc>();
+    final l10n = context.l10n;
     return BlocConsumer<OnboardingBloc, OnboardingState>(
       listener: (context, state) async {
         if (state.status == OnboardingStatus.complete) {
@@ -83,8 +86,14 @@ class _OnboardingViewState extends State<OnboardingView> {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 8,
                     children: <Widget>[
+                      Text(
+                        context.l10n.onboardingWelcome,
+                        style: theme.textTheme.displayMedium,
+                      ),
                       TextFormField(
                         controller: nameController,
                         decoration: const InputDecoration(
@@ -110,31 +119,18 @@ class _OnboardingViewState extends State<OnboardingView> {
                         onTimeSelected: (end) =>
                             setState(() => dayEndTime = end),
                       ),
-
-                      // TODO(ant): offer defaults (open, work, close)
-                      TextFormField(
-                        controller: zonesController,
-                        decoration: const InputDecoration(
-                          labelText: 'Zones (comma separated list)',
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter zones separated by a comma';
-                          }
-                          return null;
+                      ZonesListView(
+                        zones: state.zones,
+                        onZonesModified: (zones) {
+                          bloc.add(ZonesModified(zones));
                         },
-                      ),
-                      // TODO(ant): Move foothold collection to inside the zone page
-                      TextFormField(
-                        controller: footholdsController,
-                        decoration: const InputDecoration(
-                          labelText: 'Footholds (comma separated list)',
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter footholds separated by a comma';
-                          }
-                          return null;
+                        onZoneAdded: (name) {
+                          bloc.add(
+                            ZoneAdded(
+                              Zone(name: name),
+                            ),
+                          );
+                          context.pop();
                         },
                       ),
                       Row(
@@ -160,9 +156,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                                       dayEndTime.hour,
                                       dayEndTime.minute,
                                     ),
-                                    zones: zonesController.text.trim().split(
-                                      ',',
-                                    ),
+                                    zones: state.zones,
                                   ),
                                 );
 

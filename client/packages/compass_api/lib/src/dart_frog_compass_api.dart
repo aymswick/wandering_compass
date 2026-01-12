@@ -18,13 +18,7 @@ class DartFrogCompassApi implements CompassApi {
   /// Creates a Schedule on the backend, returns [Schedule] with
   /// server-created id
   @override
-  Future<Schedule> createSchedule({
-    required String name,
-    required DateTime dayStart,
-    required DateTime dayEnd,
-    required List<String> zones,
-    required List<String> footholds,
-  }) async {
+  Future<Schedule> createSchedule(Schedule schedule) async {
     try {
       final response = await http.post(
         Uri.parse(
@@ -33,15 +27,7 @@ class DartFrogCompassApi implements CompassApi {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(
-          <String, dynamic>{
-            'name': name,
-            'dayStart': dayStart.serialize(),
-            'dayEnd': dayEnd.serialize(),
-            'footholds': footholds,
-            'zones': zones,
-          },
-        ),
+        body: jsonEncode(schedule.toMap()),
       );
 
       if (response.statusCode == 201) {

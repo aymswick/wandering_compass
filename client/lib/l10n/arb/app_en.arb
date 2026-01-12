@@ -7,5 +7,9 @@
     "description": "Text shown in the AppBar of the Today Page"
   },
   "midnight": "midnight",
-  "todayAppBarTitle": "Today"
+  "todayAppBarTitle": "Today",
+  "onboardingWelcome": "Build Your Compass",
+  "@onboardingWelcome": {
+    "description": "The welcome message displayed on the initial onboarding screen for new users."
+  }
 }
