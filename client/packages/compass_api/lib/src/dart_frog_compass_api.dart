@@ -38,20 +38,12 @@ class DartFrogCompassApi implements CompassApi {
 
   @override
   Future<Schedule> getSchedule() async {
-    final data =
-        await http.get(Uri.parse('http://$_baseUrl/schedules'))
-            as Map<String, dynamic>;
+    final data = await http.get(Uri.parse('http://$_baseUrl/schedules'));
 
     logger.d('Got schedules: $data');
 
     // probably want getSchedule(id) or getScheduleForUser
 
-    throw UnimplementedError();
-
-    // return Schedule(
-    //   workingHours: config['schedule']['working_hours'] as int,
-    //   zones: config['schedule']['zones'] as List<String>,
-    //   footholds: config['schedule']['footholds'] as List<String>,
-    // );
+    return Schedule.fromJson(data.body);
   }
 }

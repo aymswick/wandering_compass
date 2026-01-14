@@ -2,10 +2,13 @@ import 'dart:io';
 
 import 'package:compass_datasource/compass_datasource.dart';
 import 'package:dart_frog/dart_frog.dart';
-import 'package:postgres_compass_datasource/postgres_compass_datasource.dart';
 import 'package:shared/shared.dart';
 
+late CompassDatasource dataSource;
+
 Future<Response> onRequest(RequestContext context) async {
+  dataSource = context.read<CompassDatasource>();
+
   switch (context.request.method) {
     case HttpMethod.get:
       return _get(context);
@@ -21,14 +24,13 @@ Future<Response> onRequest(RequestContext context) async {
 }
 
 Future<Response> _get(RequestContext context) async {
-  final schedules = await context.read<ScheduleRepository>().querySchedules();
-  return Response.json(body: schedules);
+  final schedules = await dataSource.readAll();
+  return Response.json(body: schedules[29].toMap());
 }
 
 Future<Response> _post(RequestContext context) async {
   try {
     logger.d('schedules post');
-    final dataSource = context.read<CompassDatasource>();
     final body = await context.request.json();
 
     final insertedSchedule = await dataSource.create(
