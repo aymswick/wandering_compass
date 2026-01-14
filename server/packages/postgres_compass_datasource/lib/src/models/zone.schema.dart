@@ -46,8 +46,8 @@ class _ZoneRepository extends BaseRepository
     var values = QueryValues();
     var rows = await db.execute(
       Sql.named(
-        'INSERT INTO "zones" ( "footholds", "name", "start", "stop" )\n'
-        'VALUES ${requests.map((r) => '( ${values.add(r.footholds)}:_text, ${values.add(r.name)}:text, ${values.add(r.start)}:timestamp, ${values.add(r.stop)}:timestamp )').join(', ')}\n'
+        'INSERT INTO "zones" ( "footholds", "name", "schedule_id", "start", "stop" )\n'
+        'VALUES ${requests.map((r) => '( ${values.add(r.footholds)}:_text, ${values.add(r.name)}:text, ${values.add(r.scheduleId)}:int8, ${values.add(r.start)}:timestamp, ${values.add(r.stop)}:timestamp )').join(', ')}\n'
         'RETURNING "id"',
       ),
       parameters: values.values,
@@ -67,6 +67,7 @@ class _ZoneRepository extends BaseRepository
       for (final r in requests)
         if (r.footholds != null ||
             r.name != null ||
+            r.scheduleId != null ||
             r.start != null ||
             r.stop != null)
           r,
@@ -77,9 +78,9 @@ class _ZoneRepository extends BaseRepository
       await db.execute(
         Sql.named(
           'UPDATE "zones"\n'
-          'SET "footholds" = COALESCE(UPDATED."footholds", "zones"."footholds"), "name" = COALESCE(UPDATED."name", "zones"."name"), "start" = COALESCE(UPDATED."start", "zones"."start"), "stop" = COALESCE(UPDATED."stop", "zones"."stop")\n'
-          'FROM ( VALUES ${updateRequests.map((r) => '( ${values.add(r.footholds)}:_text::_text, ${values.add(r.id)}:int8::int8, ${values.add(r.name)}:text::text, ${values.add(r.start)}:timestamp::timestamp, ${values.add(r.stop)}:timestamp::timestamp )').join(', ')} )\n'
-          'AS UPDATED("footholds", "id", "name", "start", "stop")\n'
+          'SET "footholds" = COALESCE(UPDATED."footholds", "zones"."footholds"), "name" = COALESCE(UPDATED."name", "zones"."name"), "schedule_id" = COALESCE(UPDATED."schedule_id", "zones"."schedule_id"), "start" = COALESCE(UPDATED."start", "zones"."start"), "stop" = COALESCE(UPDATED."stop", "zones"."stop")\n'
+          'FROM ( VALUES ${updateRequests.map((r) => '( ${values.add(r.footholds)}:_text::_text, ${values.add(r.id)}:int8::int8, ${values.add(r.name)}:text::text, ${values.add(r.scheduleId)}:int8::int8, ${values.add(r.start)}:timestamp::timestamp, ${values.add(r.stop)}:timestamp::timestamp )').join(', ')} )\n'
+          'AS UPDATED("footholds", "id", "name", "schedule_id", "start", "stop")\n'
           'WHERE "zones"."id" = UPDATED."id"',
         ),
         parameters: values.values,
@@ -92,12 +93,14 @@ class ZoneInsertRequest {
   ZoneInsertRequest({
     required this.footholds,
     required this.name,
+    required this.scheduleId,
     required this.start,
     required this.stop,
   });
 
   final List<String> footholds;
   final String name;
+  final int scheduleId;
   final DateTime start;
   final DateTime stop;
 }
@@ -107,6 +110,7 @@ class ZoneUpdateRequest {
     this.footholds,
     required this.id,
     this.name,
+    this.scheduleId,
     this.start,
     this.stop,
   });
@@ -114,6 +118,7 @@ class ZoneUpdateRequest {
   final List<String>? footholds;
   final int id;
   final String? name;
+  final int? scheduleId;
   final DateTime? start;
   final DateTime? stop;
 }

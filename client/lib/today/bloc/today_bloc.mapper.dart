@@ -14,6 +14,7 @@ class TodayStateMapper extends ClassMapperBase<TodayState> {
   static TodayStateMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = TodayStateMapper._());
+      ScheduleMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -106,6 +107,7 @@ extension TodayStateValueCopy<$R, $Out>
 
 abstract class TodayStateCopyWith<$R, $In extends TodayState, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
+  ScheduleCopyWith<$R, Schedule, Schedule>? get schedule;
   $R call({double? currentTick, Schedule? schedule});
   TodayStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -118,6 +120,9 @@ class _TodayStateCopyWithImpl<$R, $Out>
   @override
   late final ClassMapperBase<TodayState> $mapper =
       TodayStateMapper.ensureInitialized();
+  @override
+  ScheduleCopyWith<$R, Schedule, Schedule>? get schedule =>
+      $value.schedule?.copyWith.$chain((v) => call(schedule: v));
   @override
   $R call({double? currentTick, Object? schedule = $none}) => $apply(
     FieldCopyWithData({

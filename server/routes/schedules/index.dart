@@ -29,25 +29,24 @@ Future<Response> _post(RequestContext context) async {
   try {
     logger.d('schedules post');
     final dataSource = context.read<CompassDatasource>();
-    final body = await context.request.json() as Map<String, dynamic>;
-    logger.d(body);
+    final body = await context.request.json();
 
-    final insertedSchedule = await dataSource.create(body);
+    final insertedSchedule = await dataSource.create(
+      body as Map<String, dynamic>,
+    );
 
     return Response.json(
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       statusCode: HttpStatus.created,
-      body: Success(insertedSchedule),
+      body: insertedSchedule.toMap(),
     );
   } catch (e) {
     logger.e('Failed post: $e');
     return Response(
       statusCode: 500,
-      body: Failure<String, Exception>(
-        ObjectCreateException('schedule'),
-      ).toJson(),
+      body: ObjectCreateException('schedule').toJson(),
     );
   }
 }

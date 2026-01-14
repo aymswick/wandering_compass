@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:compass_api/compass_api.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared/shared.dart';
@@ -18,13 +16,7 @@ class DartFrogCompassApi implements CompassApi {
   /// Creates a Schedule on the backend, returns [Schedule] with
   /// server-created id
   @override
-  Future<Schedule> createSchedule({
-    required String name,
-    required DateTime dayStart,
-    required DateTime dayEnd,
-    required List<String> zones,
-    required List<String> footholds,
-  }) async {
+  Future<Schedule> createSchedule(Schedule schedule) async {
     try {
       final response = await http.post(
         Uri.parse(
@@ -33,23 +25,12 @@ class DartFrogCompassApi implements CompassApi {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(
-          <String, dynamic>{
-            'name': name,
-            'dayStart': dayStart.serialize(),
-            'dayEnd': dayEnd.serialize(),
-            'footholds': footholds,
-            'zones': zones,
-          },
-        ),
+        body: schedule.toJson(),
       );
 
-      if (response.statusCode == 201) {
-        final parsedBody = jsonDecode(response.body) as Map<String, dynamic>;
-        return Schedule.fromMap(parsedBody);
-      } else {
-        throw Exception('Server failed to create the Schedule');
-      }
+      final savedSchedule = Schedule.fromJson(response.body);
+
+      return savedSchedule;
     } catch (e) {
       rethrow;
     }

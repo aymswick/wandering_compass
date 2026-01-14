@@ -14,6 +14,7 @@ class ScheduleMapper extends ClassMapperBase<Schedule> {
   static ScheduleMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = ScheduleMapper._());
+      ZoneMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -39,8 +40,8 @@ class ScheduleMapper extends ClassMapperBase<Schedule> {
     opt: true,
     def: const [],
   );
-  static List<String> _$zones(Schedule v) => v.zones;
-  static const Field<Schedule, List<String>> _f$zones = Field(
+  static List<Zone> _$zones(Schedule v) => v.zones;
+  static const Field<Schedule, List<Zone>> _f$zones = Field(
     'zones',
     _$zones,
     opt: true,
@@ -126,14 +127,14 @@ extension ScheduleValueCopy<$R, $Out> on ObjectCopyWith<$R, Schedule, $Out> {
 abstract class ScheduleCopyWith<$R, $In extends Schedule, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get footholds;
-  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get zones;
+  ListCopyWith<$R, Zone, ZoneCopyWith<$R, Zone, Zone>> get zones;
   $R call({
     int? id,
     String? name,
     DateTime? dayStart,
     DateTime? dayEnd,
     List<String>? footholds,
-    List<String>? zones,
+    List<Zone>? zones,
   });
   ScheduleCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -154,10 +155,10 @@ class _ScheduleCopyWithImpl<$R, $Out>
         (v) => call(footholds: v),
       );
   @override
-  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get zones =>
+  ListCopyWith<$R, Zone, ZoneCopyWith<$R, Zone, Zone>> get zones =>
       ListCopyWith(
         $value.zones,
-        (v, t) => ObjectCopyWith(v, $identity, t),
+        (v, t) => v.copyWith.$chain(t),
         (v) => call(zones: v),
       );
   @override
@@ -167,7 +168,7 @@ class _ScheduleCopyWithImpl<$R, $Out>
     DateTime? dayStart,
     DateTime? dayEnd,
     List<String>? footholds,
-    List<String>? zones,
+    List<Zone>? zones,
   }) => $apply(
     FieldCopyWithData({
       if (id != $none) #id: id,

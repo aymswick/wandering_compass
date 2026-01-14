@@ -1,16 +1,26 @@
-class ObjectCreateException implements Exception {
-  ObjectCreateException(this.objectName);
+import 'package:dart_mappable/dart_mappable.dart';
+
+part 'exceptions.mapper.dart';
+
+@MappableClass()
+class ObjectCreateException
+    with ObjectCreateExceptionMappable
+    implements Exception {
   final String objectName;
+  ObjectCreateException(this.objectName);
 
   @override
   String toString() {
-    return 'Failed to create $objectName';
+    return 'Failed to create $objectName; ${super.toString()}';
   }
 }
 
-class ObjectDeleteException implements Exception {
-  ObjectDeleteException(this.objectName);
+@MappableClass()
+class ObjectDeleteException
+    with ObjectDeleteExceptionMappable
+    implements Exception {
   final String objectName;
+  ObjectDeleteException(this.objectName);
 
   @override
   String toString() {
@@ -18,9 +28,12 @@ class ObjectDeleteException implements Exception {
   }
 }
 
-class ObjectFetchException implements Exception {
-  ObjectFetchException(this.objectName);
+@MappableClass()
+class ObjectFetchException
+    with ObjectFetchExceptionMappable
+    implements Exception {
   final String objectName;
+  ObjectFetchException(this.objectName);
 
   @override
   String toString() {

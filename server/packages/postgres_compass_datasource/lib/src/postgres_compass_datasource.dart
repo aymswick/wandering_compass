@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:compass_datasource/compass_datasource.dart';
 import 'package:postgres_compass_datasource/src/models/schedule.dart' as sb;
+import 'package:postgres_compass_datasource/src/models/zone.dart';
 import 'package:shared/shared.dart';
 import 'package:stormberry/stormberry.dart';
 
@@ -41,10 +42,9 @@ class PgCompassDatasource implements CompassDatasource {
       logger.d('datasource create from: $map');
       final schedule = Schedule.fromMap(map);
 
-      final insertResult = await _db.schedules.insertOne(
+      final scheduleInsertResult = await _db.schedules.insertOne(
         sb.ScheduleInsertRequest(
           name: schedule.name,
-          zones: schedule.zones,
           footholds: (map['footholds'] as List<dynamic>)
               .map(
                 (e) => '$e',
@@ -59,10 +59,28 @@ class PgCompassDatasource implements CompassDatasource {
         ),
       );
 
-      return schedule.copyWith(id: insertResult);
+      logger.i('Inserted schedule: $scheduleInsertResult');
+
+      final zonesInsertResult = await _db.zones.insertMany(
+        schedule.zones
+            .map(
+              (z) => ZoneInsertRequest(
+                footholds: [],
+                name: z.name,
+                start: z.start ?? DateTime.now(),
+                stop: z.end ?? DateTime.now(),
+                scheduleId: scheduleInsertResult,
+              ),
+            )
+            .toList(),
+      );
+
+      logger.i('Inserted zones: $zonesInsertResult');
+
+      return schedule.copyWith(id: scheduleInsertResult);
     } catch (e) {
       logger.e(e);
-      throw Exception('goddamn _db.schedules.insertOne failed');
+      throw Exception('goddamn datasource inserty failed');
     }
   }
 

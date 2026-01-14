@@ -11,17 +11,20 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const terminalTheme = TerminalTheme(TextTheme());
     return MaterialApp.router(
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
+      theme: terminalTheme.light(),
+      darkTheme: terminalTheme.dark(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: appRouter,
       builder: (context, child) {
         return RepositoryProvider(
           create: (context) => CompassRepository(api: DartFrogCompassApi()),
-          child: Scaffold(
-            body: child ?? ErrorWidget.withDetails(),
+          child: SafeArea(
+            child: Scaffold(
+              body: child ?? ErrorWidget.withDetails(),
+            ),
           ),
         );
       },

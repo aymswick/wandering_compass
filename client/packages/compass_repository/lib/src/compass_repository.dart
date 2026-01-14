@@ -12,23 +12,13 @@ class CompassRepository {
   final CompassApi api;
 
   /// Creates a schedule via [api]
-  Future<Schedule> createSchedule({
-    required String name,
-    required DateTime dayStart,
-    required DateTime dayEnd,
-    required List<String> zones,
-    List<String>? footholds,
-  }) async {
+  Future<Schedule> createSchedule(
+    Schedule schedule,
+  ) async {
     try {
-      final schedule = await api.createSchedule(
-        name: name,
-        dayStart: dayStart,
-        dayEnd: dayEnd,
-        zones: zones,
-        footholds: footholds ?? [],
-      );
+      final result = await api.createSchedule(schedule);
 
-      return schedule;
+      return result;
     } catch (e) {
       logger.e(e);
       rethrow;

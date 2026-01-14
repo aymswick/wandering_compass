@@ -6,5 +6,8 @@ part 'zone.mapper.dart';
 class Zone with ZoneMappable {
   final String? id;
   final String name;
-  const Zone({this.id, required this.name});
+  final DateTime? start;
+  final DateTime? end;
+
+  const Zone({this.id, required this.name, this.start, this.end});
 }

@@ -25,12 +25,30 @@ class ZoneMapper extends ClassMapperBase<Zone> {
   static const Field<Zone, String> _f$id = Field('id', _$id, opt: true);
   static String _$name(Zone v) => v.name;
   static const Field<Zone, String> _f$name = Field('name', _$name);
+  static DateTime? _$start(Zone v) => v.start;
+  static const Field<Zone, DateTime> _f$start = Field(
+    'start',
+    _$start,
+    opt: true,
+  );
+  static DateTime? _$end(Zone v) => v.end;
+  static const Field<Zone, DateTime> _f$end = Field('end', _$end, opt: true);
 
   @override
-  final MappableFields<Zone> fields = const {#id: _f$id, #name: _f$name};
+  final MappableFields<Zone> fields = const {
+    #id: _f$id,
+    #name: _f$name,
+    #start: _f$start,
+    #end: _f$end,
+  };
 
   static Zone _instantiate(DecodingData data) {
-    return Zone(id: data.dec(_f$id), name: data.dec(_f$name));
+    return Zone(
+      id: data.dec(_f$id),
+      name: data.dec(_f$name),
+      start: data.dec(_f$start),
+      end: data.dec(_f$end),
+    );
   }
 
   @override
@@ -79,7 +97,7 @@ extension ZoneValueCopy<$R, $Out> on ObjectCopyWith<$R, Zone, $Out> {
 
 abstract class ZoneCopyWith<$R, $In extends Zone, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? id, String? name});
+  $R call({String? id, String? name, DateTime? start, DateTime? end});
   ZoneCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -90,16 +108,25 @@ class _ZoneCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Zone, $Out>
   @override
   late final ClassMapperBase<Zone> $mapper = ZoneMapper.ensureInitialized();
   @override
-  $R call({Object? id = $none, String? name}) => $apply(
+  $R call({
+    Object? id = $none,
+    String? name,
+    Object? start = $none,
+    Object? end = $none,
+  }) => $apply(
     FieldCopyWithData({
       if (id != $none) #id: id,
       if (name != null) #name: name,
+      if (start != $none) #start: start,
+      if (end != $none) #end: end,
     }),
   );
   @override
   Zone $make(CopyWithData data) => Zone(
     id: data.get(#id, or: $value.id),
     name: data.get(#name, or: $value.name),
+    start: data.get(#start, or: $value.start),
+    end: data.get(#end, or: $value.end),
   );
 
   @override
