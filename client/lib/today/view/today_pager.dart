@@ -52,7 +52,7 @@ class TodayView extends StatelessWidget {
                 children: [
                   ElevatedButton.icon(
                     icon: const Icon(Icons.file_open),
-                    label: const Text('Choose config file'),
+                    label: const Text('Fetch Schedule'),
                     onPressed: () => bloc.add(ScheduleFetched()),
                   ),
                   ElevatedButton(

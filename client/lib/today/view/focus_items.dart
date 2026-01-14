@@ -16,11 +16,23 @@ class FocusItems extends StatelessWidget {
         return ListView.builder(
           shrinkWrap: true,
           itemCount: items.length,
-          itemBuilder: (context, index) => ListTile(
-            leading: Text('$index', style: theme.textTheme.headlineSmall),
-            title: Text(
-              items[index],
-              style: theme.textTheme.headlineSmall,
+          itemBuilder: (context, index) => Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: ListTile(
+                leading: Text(
+                  '${index + 1}',
+                  style: theme.textTheme.headlineSmall,
+                ),
+                title: Text(
+                  items[index],
+                  style: theme.textTheme.headlineLarge,
+                ),
+
+                onTap: () => ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text('hi molly'))),
+              ),
             ),
           ),
         );
