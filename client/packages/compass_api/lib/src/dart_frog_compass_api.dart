@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:compass_api/compass_api.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared/shared.dart';
@@ -27,15 +25,12 @@ class DartFrogCompassApi implements CompassApi {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(schedule.toMap()),
+        body: schedule.toJson(),
       );
 
-      if (response.statusCode == 201) {
-        final parsedBody = jsonDecode(response.body) as Map<String, dynamic>;
-        return Schedule.fromMap(parsedBody);
-      } else {
-        throw Exception('Server failed to create the Schedule');
-      }
+      final savedSchedule = Schedule.fromJson(response.body);
+
+      return savedSchedule;
     } catch (e) {
       rethrow;
     }

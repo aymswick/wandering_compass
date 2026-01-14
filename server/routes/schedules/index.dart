@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:compass_datasource/compass_datasource.dart';
@@ -31,13 +30,9 @@ Future<Response> _post(RequestContext context) async {
     logger.d('schedules post');
     final dataSource = context.read<CompassDatasource>();
     final body = await context.request.json();
-    logger.d(body);
-    logger.d('body runtimetype: ${body.runtimeType}');
-
-    // TODO(ant): FIX BUG json has \
 
     final insertedSchedule = await dataSource.create(
-      jsonDecode(body.toString()) as Map<String, dynamic>,
+      body as Map<String, dynamic>,
     );
 
     return Response.json(
@@ -45,15 +40,13 @@ Future<Response> _post(RequestContext context) async {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       statusCode: HttpStatus.created,
-      body: Success(insertedSchedule),
+      body: insertedSchedule.toMap(),
     );
   } catch (e) {
     logger.e('Failed post: $e');
     return Response(
       statusCode: 500,
-      body: Failure<String, Exception>(
-        ObjectCreateException('schedule'),
-      ).toJson(),
+      body: ObjectCreateException('schedule').toJson(),
     );
   }
 }
