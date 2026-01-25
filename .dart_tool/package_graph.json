@@ -18,6 +18,7 @@
       "name": "wanderers_compass",
       "version": "1.0.0+1",
       "dependencies": [
+        "authentication_repository",
         "bloc",
         "build_runner",
         "clock",
@@ -28,6 +29,8 @@
         "flutter",
         "flutter_bloc",
         "flutter_localizations",
+        "flutter_secure_storage",
+        "formz",
         "go_router",
         "intl",
         "mocktail",
@@ -46,6 +49,8 @@
       "name": "server",
       "version": "1.0.0+1",
       "dependencies": [
+        "auth_postgres_repository",
+        "auth_repository",
         "compass_datasource",
         "dart_frog",
         "dart_frog_auth",
@@ -216,7 +221,8 @@
         "compass_datasource",
         "postgres",
         "shared",
-        "stormberry"
+        "stormberry",
+        "uuid"
       ]
     },
     {
@@ -259,6 +265,27 @@
       "version": "0.1.0+1",
       "dependencies": [
         "shared"
+      ]
+    },
+    {
+      "name": "auth_repository",
+      "version": "0.1.0+1",
+      "dependencies": [
+        "compass_datasource",
+        "dart_jsonwebtoken",
+        "shared"
+      ]
+    },
+    {
+      "name": "auth_postgres_repository",
+      "version": "0.1.0+1",
+      "dependencies": [
+        "auth_repository",
+        "compass_datasource",
+        "dart_jsonwebtoken",
+        "dbcrypt",
+        "shared",
+        "uuid"
       ]
     },
     {
@@ -341,6 +368,26 @@
       ]
     },
     {
+      "name": "formz",
+      "version": "0.8.0",
+      "dependencies": [
+        "meta"
+      ]
+    },
+    {
+      "name": "flutter_secure_storage",
+      "version": "10.0.0",
+      "dependencies": [
+        "flutter",
+        "flutter_secure_storage_darwin",
+        "flutter_secure_storage_linux",
+        "flutter_secure_storage_platform_interface",
+        "flutter_secure_storage_web",
+        "flutter_secure_storage_windows",
+        "meta"
+      ]
+    },
+    {
       "name": "flutter_localizations",
       "version": "0.0.0",
       "dependencies": [
@@ -416,6 +463,14 @@
       "version": "9.2.0",
       "dependencies": [
         "meta"
+      ]
+    },
+    {
+      "name": "authentication_repository",
+      "version": "0.1.0+1",
+      "dependencies": [
+        "compass_api",
+        "shared"
       ]
     },
     {
@@ -864,6 +919,15 @@
       ]
     },
     {
+      "name": "uuid",
+      "version": "4.5.2",
+      "dependencies": [
+        "crypto",
+        "fixnum",
+        "meta"
+      ]
+    },
+    {
       "name": "charcode",
       "version": "1.4.0",
       "dependencies": []
@@ -894,6 +958,21 @@
     {
       "name": "http_methods",
       "version": "1.1.1",
+      "dependencies": []
+    },
+    {
+      "name": "dart_jsonwebtoken",
+      "version": "3.3.1",
+      "dependencies": [
+        "clock",
+        "convert",
+        "ed25519_edwards",
+        "pointycastle"
+      ]
+    },
+    {
+      "name": "dbcrypt",
+      "version": "2.0.0",
       "dependencies": []
     },
     {
@@ -1034,6 +1113,52 @@
       "version": "0.0.0",
       "dependencies": [
         "flutter"
+      ]
+    },
+    {
+      "name": "flutter_secure_storage_windows",
+      "version": "4.1.0",
+      "dependencies": [
+        "ffi",
+        "flutter",
+        "flutter_secure_storage_platform_interface",
+        "path",
+        "path_provider",
+        "win32"
+      ]
+    },
+    {
+      "name": "flutter_secure_storage_web",
+      "version": "2.1.0",
+      "dependencies": [
+        "flutter",
+        "flutter_secure_storage_platform_interface",
+        "flutter_web_plugins",
+        "web"
+      ]
+    },
+    {
+      "name": "flutter_secure_storage_platform_interface",
+      "version": "2.0.1",
+      "dependencies": [
+        "flutter",
+        "plugin_platform_interface"
+      ]
+    },
+    {
+      "name": "flutter_secure_storage_linux",
+      "version": "3.0.0",
+      "dependencies": [
+        "flutter",
+        "flutter_secure_storage_platform_interface"
+      ]
+    },
+    {
+      "name": "flutter_secure_storage_darwin",
+      "version": "0.2.0",
+      "dependencies": [
+        "flutter",
+        "plugin_platform_interface"
       ]
     },
     {
@@ -1232,6 +1357,24 @@
       ]
     },
     {
+      "name": "ed25519_edwards",
+      "version": "0.3.1",
+      "dependencies": [
+        "adaptive_number",
+        "collection",
+        "convert",
+        "crypto"
+      ]
+    },
+    {
+      "name": "pointycastle",
+      "version": "4.0.0",
+      "dependencies": [
+        "collection",
+        "convert"
+      ]
+    },
+    {
       "name": "leak_tracker_testing",
       "version": "3.0.2",
       "dependencies": [
@@ -1286,6 +1429,13 @@
       "dependencies": [
         "collection",
         "meta"
+      ]
+    },
+    {
+      "name": "adaptive_number",
+      "version": "1.0.0",
+      "dependencies": [
+        "fixnum"
       ]
     }
   ],

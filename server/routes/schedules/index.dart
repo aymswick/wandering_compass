@@ -23,9 +23,10 @@ Future<Response> onRequest(RequestContext context) async {
   }
 }
 
+// TODO(ant): let users have multiple schedules...revisions...time budget...like ynab for time
 Future<Response> _get(RequestContext context) async {
   final schedules = await dataSource.readAll();
-  return Response.json(body: schedules[29].toMap());
+  return Response.json(body: schedules.first.toMap());
 }
 
 Future<Response> _post(RequestContext context) async {

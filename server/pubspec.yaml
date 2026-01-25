@@ -8,13 +8,17 @@ environment:
 resolution: workspace
 
 dependencies:
+  auth_postgres_repository:
+    path: 'packages/auth_postgres_repository'
+  auth_repository:
+    path: 'packages/auth_repository'
   compass_datasource: 
-    path: './packages/compass_datasource'
+    path: 'packages/compass_datasource'
   dart_frog: ^1.1.0
   dart_frog_auth: ^1.2.2
   postgres: ^3.5.9
   postgres_compass_datasource:
-    path: './packages/postgres_compass_datasource'
+    path: 'packages/postgres_compass_datasource'
   shared:
     path: '../shared'
   stormberry: ^0.18.0

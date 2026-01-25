@@ -1,8 +1,28 @@
+import 'dart:io';
+
+import 'package:authentication_repository/authentication_repository.dart';
+import 'package:http/http.dart' as http;
 import 'package:wanderers_compass/app/app.dart';
 import 'package:wanderers_compass/bootstrap.dart';
+import 'package:wanderers_compass/shared/secure_token_storage.dart';
 
 Future<void> main() async {
+  HttpOverrides.global = MyHttpOverrides();
   await bootstrap(
-    () => const App(),
+    () => App(
+      authenticationRepository: AuthenticationRepository(
+        httpClient: http.Client(),
+        tokenStorage: SecureTokenStorage(),
+      ),
+    ),
   );
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
 }

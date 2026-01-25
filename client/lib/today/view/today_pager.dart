@@ -55,6 +55,7 @@ class TodayView extends StatelessWidget {
                     label: const Text('Fetch Schedule'),
                     onPressed: () => bloc.add(ScheduleFetched()),
                   ),
+
                   ElevatedButton(
                     onPressed: () async {
                       await SharedPreferencesAsync().setBool(
@@ -67,6 +68,7 @@ class TodayView extends StatelessWidget {
                     },
                     child: const Text('Reset'),
                   ),
+
                   ListView.builder(
                     shrinkWrap: true,
                     itemCount: zones.length,
@@ -76,8 +78,11 @@ class TodayView extends StatelessWidget {
                   ),
                 ],
               ),
-              (1) => CircularCountdownClock(
-                progress: dayProgressPercentage,
+              (1) => Padding(
+                padding: const EdgeInsets.all(8),
+                child: CircularCountdownClock(
+                  progress: dayProgressPercentage,
+                ),
               ),
               (2) => const FocusItems(),
               (_) => const Text('howd u get here??'),

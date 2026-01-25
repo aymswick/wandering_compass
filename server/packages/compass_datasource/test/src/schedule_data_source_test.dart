@@ -18,15 +18,51 @@ class _TestScheduleDatasource implements CompassDatasource {
       throw UnimplementedError();
 
   @override
-  Future<void> delete(String id) => throw UnimplementedError();
+  Future<User?> createUser({
+    required String username,
+    required String passwordHash,
+  }) {
+    // TODO: implement createUser
+    throw UnimplementedError();
+  }
 
   @override
-  Future<Schedule?> read(String id) => throw UnimplementedError();
+  Future<void> delete(int id) => throw UnimplementedError();
+
+  @override
+  Future<User?> fetchUserById(String id) {
+    // TODO: implement fetchUserById
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<User?> fetchUserByUsername(String id) {
+    // TODO: implement fetchUserByUsername
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<(User?, String?)?> getUserWithHash(String username) {
+    // TODO: implement getUserWithHash
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Schedule?> read(int id) => throw UnimplementedError();
 
   @override
   Future<List<Schedule>> readAll() => throw UnimplementedError();
 
   @override
-  Future<Schedule> update(String id, Schedule schedule) =>
+  Future<Schedule> update(int id, Schedule schedule) =>
       throw UnimplementedError();
+
+  @override
+  Future<void> updateRefreshToken({
+    required String userId,
+    required String token,
+  }) {
+    // TODO: implement updateRefreshToken
+    throw UnimplementedError();
+  }
 }

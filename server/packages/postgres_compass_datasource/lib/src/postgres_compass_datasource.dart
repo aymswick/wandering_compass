@@ -1,10 +1,14 @@
 import 'dart:io';
 
 import 'package:compass_datasource/compass_datasource.dart';
+import 'package:postgres_compass_datasource/src/custom_queries.dart';
+import 'package:postgres_compass_datasource/src/models/refresh_token.dart';
 import 'package:postgres_compass_datasource/src/models/schedule.dart' as sb;
+import 'package:postgres_compass_datasource/src/models/user.dart' as model;
 import 'package:postgres_compass_datasource/src/models/zone.dart';
 import 'package:shared/shared.dart';
 import 'package:stormberry/stormberry.dart';
+import 'package:uuid/uuid.dart';
 
 /// {@template postgres_schedule_data_source}
 /// Postgres implementation of schedule data source
@@ -85,15 +89,86 @@ class PgCompassDatasource implements CompassDatasource {
   }
 
   @override
-  Future<void> delete(String id) {
-    // TODO: implement delete
+  Future<User?> createUser({
+    required String username,
+    required String passwordHash,
+  }) async {
+    try {
+      final uuid = const Uuid().v4();
+      await _db.users.insertOne(
+        model.UserInsertRequest(
+          id: uuid,
+          username: username,
+          passwordHash: passwordHash,
+          createdAt: DateTime.now(),
+        ),
+      );
+
+      return User(
+        id: uuid,
+        username: username,
+      );
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> delete(int id) {
     throw UnimplementedError();
   }
 
   @override
-  Future<Schedule?> read(String id) {
-    // TODO: implement read
-    throw UnimplementedError();
+  Future<User?> fetchUserById(String id) async {
+    try {
+      final result = await _db.users.queryUser(id);
+
+      return User(username: result!.username, id: result.id);
+    } catch (e) {
+      logger.e(e);
+    }
+    return null;
+  }
+
+  @override
+  Future<User?> fetchUserByUsername(String username) async {
+    final result = (await _db.users.queryUsers(
+      QueryParams(
+        where: 'username = @username',
+        values: {'username': username},
+        limit: 1,
+      ),
+    )).firstOrNull;
+
+    if (result == null) {
+      logger.i('No user found for username: $username');
+      return null;
+    }
+
+    return User(username: result.username, id: result.id);
+  }
+
+  @override
+  Future<(User?, String?)?> getUserWithHash(String username) async {
+    try {
+      final result = await _db.users.query(const GetFullUserQuery(), username);
+
+      return result;
+    } catch (err) {
+      logger.e(err);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Schedule?> read(int id) async {
+    final result = await _db.schedules.querySchedule(id);
+    return Schedule(
+      name: result!.name,
+      dayStart: result.dayStart,
+      dayEnd: result.dayEnd,
+    );
   }
 
   @override
@@ -114,8 +189,27 @@ class PgCompassDatasource implements CompassDatasource {
   }
 
   @override
-  Future<Schedule> update(String id, Schedule schedule) {
+  Future<Schedule> update(int id, Schedule schedule) {
     // TODO: implement update
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateRefreshToken({
+    required String userId,
+    required String token,
+  }) async {
+    try {
+      await _db.refreshTokens.insertOne(
+        RefreshTokenInsertRequest(
+          id: const Uuid().v4(),
+          userId: userId,
+          token: token,
+          expiresAt: DateTime.now().add(const Duration(days: 7)),
+        ),
+      );
+    } catch (e) {
+      logger.e(e);
+    }
   }
 }
